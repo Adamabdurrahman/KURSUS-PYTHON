@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul HTML — Dasar-Dasar HTML</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F0F4FF;
+    --surface: #FFFFFF;
+    --primary: #2D6BE4;
+    --primary-light: #EBF1FD;
+    --amber: #E8912D;
+    --amber-light: #FEF3E2;
+    --green: #1A9E5F;
+    --green-light: #E8F7F1;
+    --red: #E24B4B;
+    --red-light: #FDECEC;
+    --text: #1A1D2E;
+    --muted: #6B7280;
+    --border: #E2E8F0;
+    --code-bg: #1E2233;
+    --code-text: #E2E8F0;
+    --sidebar-w: 260px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    padding: 24px 0;
+    z-index: 100;
+  }
+
+  .sidebar-brand {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .sidebar-brand .tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-brand h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .sidebar-brand p {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .toc-item:hover, .toc-item.active {
+    color: var(--primary);
+    background: var(--primary-light);
+    border-left-color: var(--primary);
+  }
+
+  .toc-num {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 1px 6px;
+    border-radius: 3px;
+    min-width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* ─── MAIN ─── */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    padding: 40px 48px;
+    max-width: 900px;
+  }
+
+  /* ─── PAGE HEADER ─── */
+  .page-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .page-header .eyebrow {
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .page-header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .page-header p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 620px;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .topic-chip {
+    font-size: 12px;
+    color: var(--primary);
+    background: var(--primary-light);
+    border: 1px solid #C7D9F8;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    margin-bottom: 60px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--surface);
+    background: var(--primary);
+    padding: 4px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .card p, .card li {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .card ul, .card ol {
+    padding-left: 20px;
+    margin-top: 8px;
+  }
+
+  .card li { margin-bottom: 4px; }
+
+  /* ─── CALLOUT BOXES ─── */
+  .callout {
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    border-left: 4px solid;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .callout.analogy   { background: var(--amber-light);  border-color: var(--amber);  color: #7A4A0E; }
+  .callout.tip       { background: var(--green-light);  border-color: var(--green);  color: #0E5C37; }
+  .callout.warning   { background: var(--red-light);    border-color: var(--red);    color: #7A1A1A; }
+  .callout.info      { background: var(--primary-light); border-color: var(--primary); color: #1A3A7A; }
+
+  /* ─── COMPARISON TABLE ─── */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .comp-table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .comp-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-table tr:nth-child(even) td { background: var(--bg); }
+
+  .comp-table code {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* ─── CODE BLOCK WITH LIVE PREVIEW ─── */
+  .demo-block {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .demo-header {
+    background: #2A3044;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .demo-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: #8B9CC8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .demo-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-r { background: #FF5F57; }
+  .dot-y { background: #FEBC2E; }
+  .dot-g { background: #28C840; }
+
+  .copy-btn {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: #8B9CC8;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover { background: rgba(255,255,255,0.15); color: white; }
+
+  .demo-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .demo-body.full { grid-template-columns: 1fr; }
+
+  .code-pane {
+    background: var(--code-bg);
+    padding: 18px 20px;
+    overflow-x: auto;
+  }
+
+  .code-pane pre {
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--code-text);
+    line-height: 1.7;
+    white-space: pre;
+  }
+
+  /* Syntax highlighting */
+  .ht  { color: #FF79C6; }  /* html tag */
+  .at  { color: #8BE9FD; }  /* attribute */
+  .av  { color: #F1FA8C; }  /* attribute value */
+  .cm  { color: #6272A4; font-style: italic; } /* comment */
+  .tx  { color: #E2E8F0; }  /* text content */
+
+  .preview-pane {
+    background: white;
+    padding: 18px 20px;
+    border-left: 1px solid #2A3044;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow: auto;
+  }
+
+  .preview-label {
+    font-size: 10px;
+    font-family: 'Fira Code', monospace;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .preview-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  /* ─── EXERCISE ─── */
+  .exercise {
+    background: var(--green-light);
+    border: 1px solid #A8DFC5;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .exercise-title {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--green);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .exercise p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #0E5C37;
+    margin-bottom: 12px;
+  }
+
+  .hint-toggle {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--green);
+    background: white;
+    border: 1px solid var(--green);
+    padding: 5px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hint-toggle:hover { background: var(--green); color: white; }
+
+  .hint-box {
+    display: none;
+    margin-top: 12px;
+    background: white;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+
+  .hint-box.open { display: block; }
+
+  .hint-box pre {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--code-bg);
+    white-space: pre-wrap;
+    line-height: 1.6;
+  }
+
+  /* ─── REFLECTION ─── */
+  .reflection {
+    background: linear-gradient(135deg, #EBF1FD 0%, #F5E8FD 100%);
+    border: 1px solid #C7D9F8;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  .reflection strong { color: var(--primary); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ─── INLINE CODE ─── */
+  code {
+    font-family: 'Fira Code', monospace;
+    font-size: 12.5px;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+
+  /* ─── PROGRESS BADGE ─── */
+  .progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .prog-seg {
+    height: 4px;
+    flex: 1;
+    border-radius: 2px;
+    background: var(--border);
+  }
+
+  .prog-seg.done { background: var(--primary); }
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <div class="tag">&lt;html&gt; modul</div>
+    <h2>Dasar-Dasar HTML</h2>
+    <p>Belajar step by step dengan contoh langsung</p>
+    <div class="progress-bar">
+      <div class="prog-seg done"></div>
+      <div class="prog-seg done"></div>
+      <div class="prog-seg done"></div>
+      <div class="prog-seg"></div>
+      <div class="prog-seg"></div>
+      <div class="prog-seg"></div>
+      <div class="prog-seg"></div>
+      <div class="prog-seg"></div>
+      <div class="prog-seg"></div>
+      <div class="prog-seg"></div>
+    </div>
+  </div>
+
+  <a class="toc-item active" href="#s1"><span class="toc-num">01</span> Heading & Paragraf</a>
+  <a class="toc-item" href="#s2"><span class="toc-num">02</span> Tag Teks Khusus</a>
+  <a class="toc-item" href="#s3"><span class="toc-num">03</span> List & Nested List</a>
+  <a class="toc-item" href="#s4"><span class="toc-num">04</span> Link & Anchor</a>
+  <a class="toc-item" href="#s5"><span class="toc-num">05</span> Media</a>
+  <a class="toc-item" href="#s6"><span class="toc-num">06</span> Tabel HTML</a>
+  <a class="toc-item" href="#s7"><span class="toc-num">07</span> Form & Input</a>
+  <a class="toc-item" href="#s8"><span class="toc-num">08</span> Atribut Input</a>
+  <a class="toc-item" href="#s9"><span class="toc-num">09</span> Struktur Form</a>
+  <a class="toc-item" href="#s10"><span class="toc-num">🎯</span> Mini Project</a>
+</nav>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<main id="main">
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="eyebrow">// Modul HTML — Dasar-Dasar</div>
+    <h1>Belajar HTML dari Nol</h1>
+    <p>HTML (<em>HyperText Markup Language</em>) adalah bahasa standar untuk membuat halaman web. Di modul ini kita akan belajar tag-tag penting, cara kerja browser membaca kode, dan langsung melihat hasilnya.</p>
+    <div class="topics-grid">
+      <span class="topic-chip">&lt;h1&gt; Heading & Paragraf</span>
+      <span class="topic-chip">&lt;a&gt; Link & Anchor</span>
+      <span class="topic-chip">&lt;ul&gt; Lists</span>
+      <span class="topic-chip">&lt;table&gt; Tabel</span>
+      <span class="topic-chip">&lt;form&gt; Form & Input</span>
+      <span class="topic-chip">&lt;img&gt; Media</span>
+    </div>
+  </header>
+
+  <!-- ═══ SECTION 1: HEADING & PARAGRAF ═══ -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Heading &amp; Paragraf</h2>
+    </div>
+
+    <div class="card">
+      <p>HTML menggunakan <strong>tag</strong> — penanda yang diapit tanda kurung siku — untuk memberi tahu browser cara menampilkan konten. Setiap tag biasanya punya tag pembuka dan tag penutup.</p>
+      <br>
+      <p><strong>Tag Heading</strong> digunakan untuk judul dan sub-judul. Ada 6 tingkatan, dari <code>&lt;h1&gt;</code> (paling besar) sampai <code>&lt;h6&gt;</code> (paling kecil). Tag <code>&lt;p&gt;</code> digunakan untuk paragraf teks biasa.</p>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Analogi</div>
+      Bayangkan dokumen HTML seperti <strong>majalah cetak</strong>. <code>&lt;h1&gt;</code> adalah judul utama di halaman depan (paling besar, paling mencolok). <code>&lt;h2&gt;</code> adalah sub-judul artikel. <code>&lt;h3&gt;</code> adalah judul sub-bagian kecil. Sementara <code>&lt;p&gt;</code> adalah isi paragraf biasa yang kamu baca.
+    </div>
+
+    <table class="comp-table">
+      <tr><th>Tag</th><th>Fungsi</th><th>Ukuran Default</th></tr>
+      <tr><td><code>&lt;h1&gt;</code></td><td>Judul utama halaman / website</td><td>Paling besar (~2em)</td></tr>
+      <tr><td><code>&lt;h2&gt;</code></td><td>Judul artikel atau section</td><td>Besar (~1.5em)</td></tr>
+      <tr><td><code>&lt;h3&gt;</code></td><td>Sub-judul / sub-section</td><td>Sedang (~1.17em)</td></tr>
+      <tr><td><code>&lt;p&gt;</code></td><td>Paragraf teks</td><td>Normal (1em)</td></tr>
+    </table>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 1 — Heading &amp; Paragraf
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;h1&gt;</span><span class="tx">Judul Website (Heading 1)</span><span class="ht">&lt;/h1&gt;</span>
+<span class="ht">&lt;h2&gt;</span><span class="tx">Judul Artikel (Heading 2)</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;h3&gt;</span><span class="tx">Sub Judul (Heading 3)</span><span class="ht">&lt;/h3&gt;</span>
+
+<span class="ht">&lt;p&gt;</span><span class="tx">Ini adalah sebuah paragraf.
+Kamu bisa menulis teks panjang di sini.</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;p&gt;</span><span class="tx">Paragraf kedua secara otomatis
+punya jarak dari paragraf pertama.</span><span class="ht">&lt;/p&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <h1 style="font-size:1.6em;margin-bottom:4px">Judul Website (Heading 1)</h1>
+          <h2 style="font-size:1.2em;margin-bottom:4px">Judul Artikel (Heading 2)</h2>
+          <h3 style="font-size:1em;margin-bottom:8px">Sub Judul (Heading 3)</h3>
+          <p style="font-size:13px;margin-bottom:8px">Ini adalah sebuah paragraf. Kamu bisa menulis teks panjang di sini.</p>
+          <p style="font-size:13px">Paragraf kedua secara otomatis punya jarak dari paragraf pertama.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-title">✅ Tips</div>
+      Setiap halaman web idealnya hanya punya <strong>satu</strong> tag <code>&lt;h1&gt;</code> — yaitu judul utama halaman. Ini penting untuk SEO (agar mesin pencari seperti Google mudah memahami halaman kamu).
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-title">⚠️ Common Mistake</div>
+      Jangan pakai heading hanya karena ukurannya besar! Heading punya makna hierarki, bukan sekadar gaya teks. Kalau kamu mau teks besar, gunakan CSS. Heading dipakai untuk <strong>struktur konten</strong>.
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">✏️ Exercise 1</div>
+      <p>Buat halaman HTML sederhana yang berisi: judul utama "Profilku", sub-judul "Tentang Saya", dan dua paragraf yang berisi deskripsi singkat tentang dirimu.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">💡 Lihat Contoh Jawaban</button>
+      <div class="hint-box">
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Profilku&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Profilku&lt;/h1&gt;
+  &lt;h2&gt;Tentang Saya&lt;/h2&gt;
+  &lt;p&gt;Nama saya Adam. Saya adalah pelajar SMK jurusan TKJ.&lt;/p&gt;
+  &lt;p&gt;Hobi saya adalah ngoding dan belajar hal-hal baru tentang teknologi.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 2: TAG TEKS KHUSUS ═══ -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Tag Teks Khusus</h2>
+    </div>
+
+    <div class="card">
+      <p>Selain heading dan paragraf, HTML punya banyak tag untuk memberi <strong>makna semantik</strong> pada teks — yaitu makna yang bisa dipahami oleh browser, mesin pencari, dan screen reader. Ini berbeda dengan sekadar mengubah tampilan!</p>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Analogi</div>
+      Bedakan antara <strong>format</strong> dan <strong>makna</strong>. Di koran, teks miring bisa berarti judul buku, nama latin hewan, atau kata asing. HTML punya tag berbeda untuk masing-masing maknanya — sehingga mesin bisa mengerti konteksnya, bukan hanya tampilannya.
+    </div>
+
+    <table class="comp-table">
+      <tr><th>Tag</th><th>Fungsi / Makna</th><th>Tampilan Default</th></tr>
+      <tr><td><code>&lt;cite&gt;</code></td><td>Nama sumber / judul karya yang dikutip</td><td>Miring (italic)</td></tr>
+      <tr><td><code>&lt;q&gt;</code></td><td>Kutipan singkat inline</td><td>Diberi tanda kutip otomatis</td></tr>
+      <tr><td><code>&lt;blockquote&gt;</code></td><td>Kutipan panjang (blok tersendiri)</td><td>Menjorok ke dalam</td></tr>
+      <tr><td><code>&lt;abbr&gt;</code></td><td>Singkatan (dengan tooltip penjelasan)</td><td>Garis bawah putus-putus</td></tr>
+      <tr><td><code>&lt;mark&gt;</code></td><td>Teks yang di-highlight / ditandai</td><td>Background kuning</td></tr>
+      <tr><td><code>&lt;small&gt;</code></td><td>Teks kecil (copyright, catatan kaki)</td><td>Ukuran lebih kecil</td></tr>
+    </table>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 2a — Kutipan dengan &lt;cite&gt; &amp; &lt;q&gt;
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;p&gt;</span>
+  <span class="ht">&lt;cite&gt;</span><span class="tx">Nabi Muhammad</span><span class="ht">&lt;/cite&gt;</span><span class="tx"> berkata:</span>
+  <span class="ht">&lt;q&gt;</span><span class="tx">Belajarlah sampai ke Negeri Cina.</span><span class="ht">&lt;/q&gt;</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;blockquote&gt;</span>
+  <span class="ht">&lt;q&gt;</span><span class="tx">Orang cerdas itu baik hatinya.</span><span class="ht">&lt;/q&gt;</span>
+  — <span class="ht">&lt;mark&gt;</span><span class="ht">&lt;cite&gt;</span><span class="tx">Hamba Tuhan</span><span class="ht">&lt;/cite&gt;&lt;/mark&gt;</span>
+<span class="ht">&lt;/blockquote&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <p style="font-size:13px;margin-bottom:10px"><cite>Nabi Muhammad</cite> berkata: <q>Belajarlah sampai ke Negeri Cina.</q></p>
+          <blockquote style="border-left:3px solid #ccc;padding-left:12px;margin:0;font-size:13px">
+            <q>Orang cerdas itu baik hatinya.</q>
+            — <mark><cite>Hamba Tuhan</cite></mark>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 2b — &lt;abbr&gt;, &lt;small&gt;, HTML Entities
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;p&gt;</span>
+  <span class="ht">&lt;abbr</span> <span class="at">title=</span><span class="av">"HyperText Markup Language"</span><span class="ht">&gt;</span>
+    <span class="tx">HTML</span>
+  <span class="ht">&lt;/abbr&gt;</span>
+  <span class="tx">adalah bahasa markup standar.</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- HTML Entity untuk simbol khusus --&gt;</span>
+<span class="ht">&lt;p&gt;&lt;small&gt;</span><span class="tx">&amp;copy; 2024 Namaku</span><span class="ht">&lt;/small&gt;&lt;/p&gt;</span>
+<span class="ht">&lt;p&gt;&lt;small&gt;</span><span class="tx">&amp;#169; 2024 Namaku</span><span class="ht">&lt;/small&gt;&lt;/p&gt;</span>
+<span class="cm">&lt;!-- &amp;copy; dan &amp;#169; keduanya menghasilkan © --&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <p style="font-size:13px;margin-bottom:8px"><abbr title="HyperText Markup Language">HTML</abbr> adalah bahasa markup standar.</p>
+          <p style="font-size:11px;margin-bottom:4px"><small>&copy; 2024 Namaku</small></p>
+          <p style="font-size:11px"><small>&#169; 2024 Namaku</small></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-title">ℹ️ HTML Entity</div>
+      <strong>HTML Entity</strong> adalah kode khusus untuk simbol yang tidak bisa langsung diketik. Format: <code>&amp;nama;</code> atau <code>&amp;#angka;</code>. Contoh: <code>&amp;copy;</code> → © &nbsp;|&nbsp; <code>&amp;amp;</code> → &amp; &nbsp;|&nbsp; <code>&amp;lt;</code> → &lt; &nbsp;|&nbsp; <code>&amp;gt;</code> → &gt;
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">✏️ Exercise 2</div>
+      <p>Buat paragraf yang menampilkan kutipan favoritmu. Gunakan <code>&lt;cite&gt;</code> untuk nama penulisnya, <code>&lt;q&gt;</code> untuk kutipannya, dan tambahkan <code>&lt;abbr&gt;</code> untuk satu singkatan yang relevan. Di bagian bawah, tambahkan teks copyright dengan <code>&lt;small&gt;</code>.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">💡 Lihat Contoh Jawaban</button>
+      <div class="hint-box">
+<pre>&lt;p&gt;
+  &lt;cite&gt;Albert Einstein&lt;/cite&gt; pernah berkata:
+  &lt;q&gt;Imajinasi lebih penting dari pengetahuan.&lt;/q&gt;
+&lt;/p&gt;
+&lt;p&gt;
+  &lt;abbr title="Artificial Intelligence"&gt;AI&lt;/abbr&gt;
+  adalah teknologi masa depan.
+&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;&amp;copy; 2024 Karyaku&lt;/small&gt;&lt;/p&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 3: LIST ═══ -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>List &amp; Nested List</h2>
+    </div>
+
+    <div class="card">
+      <p>HTML punya tiga jenis list untuk menampilkan data yang berurutan atau berkelompok:</p>
+      <ul style="margin-top:8px">
+        <li><strong>Ordered List</strong> <code>&lt;ol&gt;</code> — list dengan penomoran (1, 2, 3... atau A, B, C...)</li>
+        <li><strong>Unordered List</strong> <code>&lt;ul&gt;</code> — list dengan bullet point (•, ○, ▪)</li>
+        <li><strong>Description List</strong> <code>&lt;dl&gt;</code> — list istilah dan definisinya</li>
+      </ul>
+      <p style="margin-top:10px">Setiap item list menggunakan tag <code>&lt;li&gt;</code> (list item), kecuali <code>&lt;dl&gt;</code> yang menggunakan <code>&lt;dt&gt;</code> (term) dan <code>&lt;dd&gt;</code> (description).</p>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Analogi</div>
+      <strong>Ordered List</strong> = daftar langkah memasak yang harus urut (1. Cuci beras, 2. Masak air, 3. Masukkan beras...). <strong>Unordered List</strong> = daftar belanjaan yang urutannya tidak penting. <strong>Description List</strong> = kamus atau glossary (kata → artinya).
+    </div>
+
+    <table class="comp-table">
+      <tr><th>Tag</th><th>Atribut type</th><th>Contoh tampilan</th></tr>
+      <tr><td><code>&lt;ol&gt;</code></td><td><code>type="1"</code> (default), <code>"A"</code>, <code>"a"</code>, <code>"I"</code>, <code>"i"</code></td><td>1. 2. 3. / A. B. C. / I. II. III.</td></tr>
+      <tr><td><code>&lt;ul&gt;</code></td><td><code>type="disc"</code> (default), <code>"circle"</code>, <code>"square"</code></td><td>● / ○ / ▪</td></tr>
+      <tr><td><code>&lt;dl&gt;</code></td><td>—</td><td>Istilah: definisi</td></tr>
+    </table>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 3a — Ordered &amp; Unordered List
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="cm">&lt;!-- Ordered List dengan huruf kapital --&gt;</span>
+<span class="ht">&lt;ol</span> <span class="at">type=</span><span class="av">"A"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">HTML</span><span class="ht">&lt;/li&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">CSS</span><span class="ht">&lt;/li&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">JavaScript</span><span class="ht">&lt;/li&gt;</span>
+<span class="ht">&lt;/ol&gt;</span>
+
+<span class="cm">&lt;!-- Unordered List dengan circle --&gt;</span>
+<span class="ht">&lt;ul</span> <span class="at">type=</span><span class="av">"circle"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">Google Chrome</span><span class="ht">&lt;/li&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">Firefox</span><span class="ht">&lt;/li&gt;</span>
+<span class="ht">&lt;/ul&gt;</span>
+
+<span class="cm">&lt;!-- Description List --&gt;</span>
+<span class="ht">&lt;dl&gt;</span>
+  <span class="ht">&lt;dt&gt;</span><span class="tx">HTML</span><span class="ht">&lt;/dt&gt;</span>
+  <span class="ht">&lt;dd&gt;</span><span class="tx">HyperText Markup Language</span><span class="ht">&lt;/dd&gt;</span>
+<span class="ht">&lt;/dl&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <ol type="A" style="font-size:13px;margin-bottom:10px;padding-left:20px">
+            <li>HTML</li><li>CSS</li><li>JavaScript</li>
+          </ol>
+          <ul type="circle" style="font-size:13px;margin-bottom:10px;padding-left:20px">
+            <li>Google Chrome</li><li>Firefox</li>
+          </ul>
+          <dl style="font-size:13px">
+            <dt style="font-weight:bold">HTML</dt>
+            <dd style="margin-left:16px">HyperText Markup Language</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 3b — Nested List (List Bersarang)
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;ol&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">Hardware</span><span class="ht">&lt;/li&gt;</span>
+    <span class="ht">&lt;ul</span> <span class="at">type=</span><span class="av">"disc"</span><span class="ht">&gt;</span>
+      <span class="ht">&lt;li&gt;</span><span class="tx">Hardisk</span><span class="ht">&lt;/li&gt;</span>
+      <span class="ht">&lt;li&gt;</span><span class="tx">Processor</span><span class="ht">&lt;/li&gt;</span>
+    <span class="ht">&lt;/ul&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">Software</span><span class="ht">&lt;/li&gt;</span>
+    <span class="ht">&lt;ul</span> <span class="at">type=</span><span class="av">"circle"</span><span class="ht">&gt;</span>
+      <span class="ht">&lt;li&gt;</span><span class="tx">Sistem Operasi</span><span class="ht">&lt;/li&gt;</span>
+        <span class="ht">&lt;ul</span> <span class="at">type=</span><span class="av">"disc"</span><span class="ht">&gt;</span>
+          <span class="ht">&lt;li&gt;</span><span class="tx">Windows</span><span class="ht">&lt;/li&gt;</span>
+          <span class="ht">&lt;li&gt;</span><span class="tx">Linux</span><span class="ht">&lt;/li&gt;</span>
+        <span class="ht">&lt;/ul&gt;</span>
+      <span class="ht">&lt;li&gt;</span><span class="tx">Aplikasi</span><span class="ht">&lt;/li&gt;</span>
+    <span class="ht">&lt;/ul&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="tx">Brainware</span><span class="ht">&lt;/li&gt;</span>
+<span class="ht">&lt;/ol&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <ol style="font-size:12px;padding-left:16px">
+            <li>Hardware
+              <ul type="disc" style="padding-left:16px">
+                <li>Hardisk</li><li>Processor</li>
+              </ul>
+            </li>
+            <li>Software
+              <ul type="circle" style="padding-left:16px">
+                <li>Sistem Operasi
+                  <ul type="disc" style="padding-left:16px">
+                    <li>Windows</li><li>Linux</li>
+                  </ul>
+                </li>
+                <li>Aplikasi</li>
+              </ul>
+            </li>
+            <li>Brainware</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="reflection">
+      <strong>🤔 Pertanyaan Refleksi:</strong> Perhatikan Demo 3b — nested list dibuat dengan cara meletakkan <code>&lt;ul&gt;</code> <em>di dalam</em> <code>&lt;ol&gt;</code>, bukan di dalam <code>&lt;li&gt;</code>. Apakah ini cara yang benar menurut standar HTML? Coba cari tahu perbedaannya! (Hint: idealnya <code>&lt;ul&gt;</code> nested sebaiknya diletakkan di dalam <code>&lt;li&gt;</code>.)
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">✏️ Exercise 3</div>
+      <p>Buat nested list yang menampilkan menu makanan sebuah warung. Gunakan <code>&lt;ol&gt;</code> untuk kategori utama (Makanan, Minuman, Snack), lalu <code>&lt;ul&gt;</code> di dalam masing-masing kategori untuk item-itemnya (minimal 3 item per kategori).</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">💡 Lihat Contoh Jawaban</button>
+      <div class="hint-box">
+<pre>&lt;ol&gt;
+  &lt;li&gt;Makanan
+    &lt;ul&gt;
+      &lt;li&gt;Nasi Goreng&lt;/li&gt;
+      &lt;li&gt;Mie Ayam&lt;/li&gt;
+      &lt;li&gt;Soto Ayam&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Minuman
+    &lt;ul&gt;
+      &lt;li&gt;Es Teh&lt;/li&gt;
+      &lt;li&gt;Jus Jeruk&lt;/li&gt;
+      &lt;li&gt;Kopi&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Snack
+    &lt;ul&gt;
+      &lt;li&gt;Pisang Goreng&lt;/li&gt;
+      &lt;li&gt;Tahu Isi&lt;/li&gt;
+      &lt;li&gt;Risol&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 4: LINK & ANCHOR ═══ -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Link &amp; Anchor</h2>
+    </div>
+
+    <div class="card">
+      <p>Tag <code>&lt;a&gt;</code> (<em>anchor</em>) digunakan untuk membuat hyperlink — teks atau gambar yang bisa diklik untuk berpindah ke halaman lain atau ke bagian tertentu dalam halaman yang sama. Atribut wajibnya adalah <code>href</code> yang berisi URL tujuan.</p>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Analogi</div>
+      Tag <code>&lt;a&gt;</code> seperti <strong>jembatan</strong> di dunia web. <code>href</code> adalah alamat tujuan jembatan itu mengarah. Kamu bisa membuat jembatan ke halaman lain (eksternal) atau ke bagian lain di halaman yang sama (<em>anchor link</em>).
+    </div>
+
+    <table class="comp-table">
+      <tr><th>Jenis Link</th><th>Sintaks <code>href</code></th><th>Keterangan</th></tr>
+      <tr><td>Link eksternal</td><td><code>href="https://google.com"</code></td><td>Menuju website lain</td></tr>
+      <tr><td>Link internal</td><td><code>href="halaman2.html"</code></td><td>Menuju file HTML lain</td></tr>
+      <tr><td>Anchor link</td><td><code>href="#idnya"</code></td><td>Lompat ke elemen dengan id tertentu di halaman sama</td></tr>
+      <tr><td>Link email</td><td><code>href="mailto:x@x.com"</code></td><td>Membuka aplikasi email</td></tr>
+    </table>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 4 — Link &amp; Anchor Navigation
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="cm">&lt;!-- Menu navigasi anchor --&gt;</span>
+<span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#about"</span><span class="ht">&gt;</span><span class="tx">About</span><span class="ht">&lt;/a&gt;</span> |
+<span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#contact"</span><span class="ht">&gt;</span><span class="tx">Contact</span><span class="ht">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Target anchor (tujuan lompatan) --&gt;</span>
+<span class="ht">&lt;h2</span> <span class="at">id=</span><span class="av">"about"</span><span class="ht">&gt;</span><span class="tx">Tentang Saya</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;p&gt;</span><span class="tx">Ini bagian About...</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;h2</span> <span class="at">id=</span><span class="av">"contact"</span><span class="ht">&gt;</span><span class="tx">Kontak</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;p&gt;</span><span class="tx">Ini bagian Contact...</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- Buka di tab baru --&gt;</span>
+<span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"https://google.com"</span>
+   <span class="at">target=</span><span class="av">"_blank"</span><span class="ht">&gt;</span>
+  <span class="tx">Buka Google</span>
+<span class="ht">&lt;/a&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <p style="font-size:13px;margin-bottom:10px">
+            <a href="#" style="color:#2D6BE4">About</a> | <a href="#" style="color:#2D6BE4">Contact</a>
+          </p>
+          <h4 style="font-size:13px;margin-bottom:4px">Tentang Saya</h4>
+          <p style="font-size:12px;margin-bottom:8px;color:#555">Ini bagian About...</p>
+          <h4 style="font-size:13px;margin-bottom:4px">Kontak</h4>
+          <p style="font-size:12px;margin-bottom:8px;color:#555">Ini bagian Contact...</p>
+          <a href="https://google.com" target="_blank" style="font-size:12px;color:#2D6BE4">Buka Google ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-title">✅ Tips — target="_blank"</div>
+      Tambahkan atribut <code>target="_blank"</code> untuk membuka link di tab baru. Ini bagus untuk link eksternal agar pengguna tidak meninggalkan halaman kamu. Untuk anchor link internal, tidak perlu — biarkan halaman berpindah di tab yang sama.
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">✏️ Exercise 4</div>
+      <p>Buat halaman dengan navigasi sederhana berisi tiga link: "Beranda", "Profil", dan "Kontak". Setiap link mengarah ke bagian di halaman yang sama menggunakan anchor (<code>#id</code>). Buat juga bagian-bagian tersebut dengan heading dan satu paragraf masing-masing.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">💡 Lihat Contoh Jawaban</button>
+      <div class="hint-box">
+<pre>&lt;nav&gt;
+  &lt;a href="#beranda"&gt;Beranda&lt;/a&gt; |
+  &lt;a href="#profil"&gt;Profil&lt;/a&gt; |
+  &lt;a href="#kontak"&gt;Kontak&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;h2 id="beranda"&gt;Beranda&lt;/h2&gt;
+&lt;p&gt;Selamat datang di halaman saya!&lt;/p&gt;
+
+&lt;h2 id="profil"&gt;Profil&lt;/h2&gt;
+&lt;p&gt;Saya adalah pelajar SMK TKJ.&lt;/p&gt;
+
+&lt;h2 id="kontak"&gt;Kontak&lt;/h2&gt;
+&lt;p&gt;Email: saya@email.com&lt;/p&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 5: MEDIA ═══ -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Media: Gambar, Audio, Video &amp; iFrame</h2>
+    </div>
+
+    <div class="card">
+      <p>HTML mendukung berbagai jenis media yang bisa langsung ditampilkan di halaman web. Masing-masing menggunakan tag berbeda dengan atribut <code>src</code> (source) yang menunjuk lokasi file.</p>
+    </div>
+
+    <table class="comp-table">
+      <tr><th>Tag</th><th>Media</th><th>Atribut Penting</th></tr>
+      <tr><td><code>&lt;img&gt;</code></td><td>Gambar (JPG, PNG, GIF, SVG)</td><td><code>src</code>, <code>alt</code>, <code>width</code>, <code>height</code></td></tr>
+      <tr><td><code>&lt;audio&gt;</code></td><td>Audio (MP3, WAV, OGG)</td><td><code>src</code>, <code>controls</code>, <code>loop</code>, <code>autoplay</code></td></tr>
+      <tr><td><code>&lt;video&gt;</code></td><td>Video (MP4, WebM, OGG)</td><td><code>src</code>, <code>controls</code>, <code>loop</code>, <code>width</code></td></tr>
+      <tr><td><code>&lt;iframe&gt;</code></td><td>Embed halaman lain (YouTube, Maps)</td><td><code>src</code>, <code>width</code>, <code>height</code>, <code>allowfullscreen</code></td></tr>
+    </table>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 5 — Tag Media
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body full">
+        <div class="code-pane">
+          <pre><span class="cm">&lt;!-- Gambar --&gt;</span>
+<span class="ht">&lt;img</span> <span class="at">src=</span><span class="av">"gambar/foto.jpg"</span>
+     <span class="at">alt=</span><span class="av">"Deskripsi gambar"</span>
+     <span class="at">width=</span><span class="av">"300px"</span>
+     <span class="at">height=</span><span class="av">"200px"</span><span class="ht">&gt;</span>
+
+<span class="cm">&lt;!-- Audio dengan kontrol --&gt;</span>
+<span class="ht">&lt;audio</span> <span class="at">src=</span><span class="av">"musik/lagu.mp3"</span>
+       <span class="at">controls</span>
+       <span class="at">loop</span><span class="ht">&gt;&lt;/audio&gt;</span>
+
+<span class="cm">&lt;!-- Video dengan kontrol --&gt;</span>
+<span class="ht">&lt;video</span> <span class="at">src=</span><span class="av">"video/film.mp4"</span>
+       <span class="at">controls</span>
+       <span class="at">loop</span>
+       <span class="at">width=</span><span class="av">"400px"</span><span class="ht">&gt;&lt;/video&gt;</span>
+
+<span class="cm">&lt;!-- Embed YouTube via iframe --&gt;</span>
+<span class="ht">&lt;iframe</span>
+  <span class="at">width=</span><span class="av">"400"</span>
+  <span class="at">height=</span><span class="av">"225"</span>
+  <span class="at">src=</span><span class="av">"https://www.youtube.com/embed/VIDEO_ID"</span>
+  <span class="at">allowfullscreen</span><span class="ht">&gt;
+&lt;/iframe&gt;</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-title">⚠️ Selalu pakai atribut alt pada &lt;img&gt;!</div>
+      Atribut <code>alt</code> wajib diisi — ini adalah teks yang muncul jika gambar gagal dimuat, dan yang dibaca oleh screen reader untuk pengguna tunanetra. Contoh baik: <code>alt="Foto gunung Rinjani saat sunrise"</code>. Contoh buruk: <code>alt="gambar"</code> atau tidak ada <code>alt</code> sama sekali.
+    </div>
+
+    <div class="callout info">
+      <div class="callout-title">ℹ️ src relatif vs absolut</div>
+      <strong>Path relatif:</strong> <code>src="gambar/foto.jpg"</code> — lokasi file relatif terhadap file HTML. Dipakai untuk file yang ada di komputer/server kamu sendiri.<br>
+      <strong>Path absolut:</strong> <code>src="https://website.com/foto.jpg"</code> — URL lengkap. Dipakai untuk file dari internet.
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">✏️ Exercise 5</div>
+      <p>Buat halaman "Galeri Miniku" yang berisi: (1) sebuah gambar dari internet menggunakan URL langsung, (2) sebuah iframe yang menampilkan video YouTube pilihanmu. Pastikan gambar memiliki atribut <code>alt</code> yang deskriptif.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">💡 Lihat Contoh Jawaban</button>
+      <div class="hint-box">
+<pre>&lt;h1&gt;Galeri Miniku&lt;/h1&gt;
+
+&lt;h2&gt;Foto Favoritku&lt;/h2&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Biome.jpg/640px-Biome.jpg"
+     alt="Pemandangan alam hutan tropis yang hijau"
+     width="400px"&gt;
+
+&lt;h2&gt;Video Favoritku&lt;/h2&gt;
+&lt;iframe width="400" height="225"
+  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+  allowfullscreen&gt;
+&lt;/iframe&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 6: TABEL ═══ -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Tabel HTML</h2>
+    </div>
+
+    <div class="card">
+      <p>Tabel digunakan untuk menampilkan data terstruktur dalam baris dan kolom. Struktur dasar tabel terdiri dari beberapa tag yang bekerja sama:</p>
+      <ul style="margin-top:8px">
+        <li><code>&lt;table&gt;</code> — wadah utama tabel</li>
+        <li><code>&lt;caption&gt;</code> — judul tabel</li>
+        <li><code>&lt;tr&gt;</code> — <em>table row</em> (baris)</li>
+        <li><code>&lt;th&gt;</code> — <em>table header</em> (kolom judul, tebal dan tengah)</li>
+        <li><code>&lt;td&gt;</code> — <em>table data</em> (sel data biasa)</li>
+      </ul>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Analogi</div>
+      Tabel HTML seperti spreadsheet Excel. <code>&lt;tr&gt;</code> adalah baris (row 1, 2, 3...), <code>&lt;td&gt;</code> adalah sel dalam baris itu. Yang membedakan: <code>&lt;th&gt;</code> adalah header kolom (seperti baris pertama yang ditebalkan di Excel).
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 6a — Tabel Dasar
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;table</span> <span class="at">border=</span><span class="av">"1"</span>
+       <span class="at">cellpadding=</span><span class="av">"8"</span>
+       <span class="at">cellspacing=</span><span class="av">"0"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;caption&gt;</span><span class="tx">Data Siswa</span><span class="ht">&lt;/caption&gt;</span>
+  <span class="ht">&lt;tr&gt;</span>
+    <span class="ht">&lt;th&gt;</span><span class="tx">No.</span><span class="ht">&lt;/th&gt;</span>
+    <span class="ht">&lt;th&gt;</span><span class="tx">Nama</span><span class="ht">&lt;/th&gt;</span>
+    <span class="ht">&lt;th&gt;</span><span class="tx">Nilai</span><span class="ht">&lt;/th&gt;</span>
+  <span class="ht">&lt;/tr&gt;</span>
+  <span class="ht">&lt;tr&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">1</span><span class="ht">&lt;/td&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">Budi</span><span class="ht">&lt;/td&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">85</span><span class="ht">&lt;/td&gt;</span>
+  <span class="ht">&lt;/tr&gt;</span>
+  <span class="ht">&lt;tr&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">2</span><span class="ht">&lt;/td&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">Ani</span><span class="ht">&lt;/td&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">92</span><span class="ht">&lt;/td&gt;</span>
+  <span class="ht">&lt;/tr&gt;</span>
+<span class="ht">&lt;/table&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <table border="1" cellpadding="8" cellspacing="0" style="font-size:12px;border-collapse:collapse">
+            <caption style="font-weight:bold;margin-bottom:4px">Data Siswa</caption>
+            <tr><th>No.</th><th>Nama</th><th>Nilai</th></tr>
+            <tr><td>1</td><td>Budi</td><td>85</td></tr>
+            <tr><td>2</td><td>Ani</td><td>92</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 6b — colspan &amp; rowspan (Penggabungan Sel)
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;table</span> <span class="at">border=</span><span class="av">"1"</span> <span class="at">cellpadding=</span><span class="av">"8"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;tr&gt;</span>
+    <span class="ht">&lt;th</span> <span class="at">rowspan=</span><span class="av">"2"</span><span class="ht">&gt;</span><span class="tx">No.</span><span class="ht">&lt;/th&gt;</span>
+    <span class="ht">&lt;th</span> <span class="at">rowspan=</span><span class="av">"2"</span><span class="ht">&gt;</span><span class="tx">Nama</span><span class="ht">&lt;/th&gt;</span>
+    <span class="ht">&lt;th</span> <span class="at">colspan=</span><span class="av">"2"</span><span class="ht">&gt;</span><span class="tx">Jenis Kelamin</span><span class="ht">&lt;/th&gt;</span>
+  <span class="ht">&lt;/tr&gt;</span>
+  <span class="ht">&lt;tr&gt;</span>
+    <span class="ht">&lt;th&gt;</span><span class="tx">L</span><span class="ht">&lt;/th&gt;</span>
+    <span class="ht">&lt;th&gt;</span><span class="tx">P</span><span class="ht">&lt;/th&gt;</span>
+  <span class="ht">&lt;/tr&gt;</span>
+  <span class="ht">&lt;tr&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">1</span><span class="ht">&lt;/td&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">Nathania</span><span class="ht">&lt;/td&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">-</span><span class="ht">&lt;/td&gt;</span>
+    <span class="ht">&lt;td&gt;</span><span class="tx">P</span><span class="ht">&lt;/td&gt;</span>
+  <span class="ht">&lt;/tr&gt;</span>
+<span class="ht">&lt;/table&gt;</span>
+
+<span class="cm">&lt;!-- colspan: gabung ke KANAN (melebar)  --&gt;</span>
+<span class="cm">&lt;!-- rowspan: gabung ke BAWAH (memanjang) --&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <table border="1" cellpadding="6" cellspacing="0" style="font-size:12px;border-collapse:collapse">
+            <tr>
+              <th rowspan="2">No.</th>
+              <th rowspan="2">Nama</th>
+              <th colspan="2">Jenis Kelamin</th>
+            </tr>
+            <tr><th>L</th><th>P</th></tr>
+            <tr><td>1</td><td>Nathania</td><td>-</td><td>P</td></tr>
+            <tr><td>2</td><td>Fathan</td><td>L</td><td>-</td></tr>
+          </table>
+          <p style="font-size:10px;color:#888;margin-top:8px">💡 colspan gabung kanan, rowspan gabung bawah</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-title">⚠️ Common Mistake — Hitung sel dengan cermat!</div>
+      Saat menggunakan <code>colspan</code> atau <code>rowspan</code>, sel yang "dikuasai" tidak boleh ditambahkan lagi di baris berikutnya. Jika kamu memakai <code>colspan="3"</code> di satu sel, baris itu hanya perlu 1 <code>&lt;td&gt;</code> untuk 3 kolom. Baris berikutnya tetap punya 3 <code>&lt;td&gt;</code> normal.
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">✏️ Exercise 6</div>
+      <p>Buat tabel "Jadwal Pelajaran" untuk 3 hari (Senin, Selasa, Rabu) dan 3 jam pelajaran. Gunakan <code>colspan</code> untuk header "Hari" yang merentang 3 kolom, dan isi dengan nama mata pelajaran.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">💡 Lihat Contoh Jawaban</button>
+      <div class="hint-box">
+<pre>&lt;table border="1" cellpadding="8"&gt;
+  &lt;caption&gt;Jadwal Pelajaran&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Jam&lt;/th&gt;
+    &lt;th colspan="3"&gt;Hari&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;Senin&lt;/th&gt;
+    &lt;th&gt;Selasa&lt;/th&gt;
+    &lt;th&gt;Rabu&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;07.00 - 08.00&lt;/td&gt;
+    &lt;td&gt;Matematika&lt;/td&gt;
+    &lt;td&gt;B. Indonesia&lt;/td&gt;
+    &lt;td&gt;IPA&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;08.00 - 09.00&lt;/td&gt;
+    &lt;td&gt;HTML&lt;/td&gt;
+    &lt;td&gt;CSS&lt;/td&gt;
+    &lt;td&gt;JavaScript&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 7: FORM & INPUT ═══ -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Form &amp; Jenis-Jenis Input</h2>
+    </div>
+
+    <div class="card">
+      <p>Form adalah cara utama pengguna berinteraksi dan mengirimkan data di website. Tag <code>&lt;form&gt;</code> adalah wadah untuk semua elemen input. Tag <code>&lt;input&gt;</code> adalah elemen paling serbaguna — tampilan dan fungsinya berubah sesuai nilai atribut <code>type</code>-nya.</p>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Analogi</div>
+      <code>&lt;form&gt;</code> seperti <strong>amplop surat</strong>. Semua isian (nama, alamat, pesan) dimasukkan ke dalam amplop, lalu amplop dikirim ke tujuan yang ditentukan oleh atribut <code>action</code>. Tag <code>&lt;input&gt;</code> adalah kolom isian di dalam formulir itu.
+    </div>
+
+    <table class="comp-table">
+      <tr><th>type=</th><th>Fungsi</th><th>Tampilan</th></tr>
+      <tr><td><code>"text"</code></td><td>Input teks satu baris</td><td>Kotak teks biasa</td></tr>
+      <tr><td><code>"password"</code></td><td>Input teks tersembunyi (••••)</td><td>Kotak dengan bintang/titik</td></tr>
+      <tr><td><code>"email"</code></td><td>Input email (validasi otomatis)</td><td>Kotak teks + validasi @</td></tr>
+      <tr><td><code>"number"</code></td><td>Input angka dengan batas min/max</td><td>Kotak + tombol naik-turun</td></tr>
+      <tr><td><code>"date"</code></td><td>Pilih tanggal</td><td>Date picker</td></tr>
+      <tr><td><code>"radio"</code></td><td>Pilih satu dari beberapa opsi</td><td>Bulatan pilihan</td></tr>
+      <tr><td><code>"checkbox"</code></td><td>Pilih satu atau lebih opsi</td><td>Kotak centang</td></tr>
+      <tr><td><code>"color"</code></td><td>Pilih warna</td><td>Color picker</td></tr>
+      <tr><td><code>"file"</code></td><td>Upload file</td><td>Tombol pilih file</td></tr>
+    </table>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 7 — Berbagai Jenis Input
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;form</span> <span class="at">action=</span><span class="av">""</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;p&gt;</span><span class="tx">Username:</span>
+    <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"text"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;p&gt;</span><span class="tx">Password:</span>
+    <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"password"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;p&gt;</span><span class="tx">Jenis Kelamin:</span>
+    <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span>
+           <span class="at">name=</span><span class="av">"jk"</span><span class="ht">&gt;</span><span class="tx"> Laki-laki</span>
+    <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span>
+           <span class="at">name=</span><span class="av">"jk"</span><span class="ht">&gt;</span><span class="tx"> Perempuan</span>
+  <span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;p&gt;</span><span class="tx">Hobi:</span>
+    <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"checkbox"</span><span class="ht">&gt;</span><span class="tx"> Membaca</span>
+    <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"checkbox"</span><span class="ht">&gt;</span><span class="tx"> Ngoding</span>
+  <span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;button</span> <span class="at">type=</span><span class="av">"submit"</span><span class="ht">&gt;</span><span class="tx">Login</span><span class="ht">&lt;/button&gt;</span>
+<span class="ht">&lt;/form&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <form style="font-size:13px" onsubmit="return false">
+            <p style="margin-bottom:8px">Username: <input type="text" style="font-size:12px"></p>
+            <p style="margin-bottom:8px">Password: <input type="password" style="font-size:12px"></p>
+            <p style="margin-bottom:8px">Jenis Kelamin:
+              <input type="radio" name="jk"> Laki-laki
+              <input type="radio" name="jk"> Perempuan
+            </p>
+            <p style="margin-bottom:10px">Hobi:
+              <input type="checkbox"> Membaca
+              <input type="checkbox"> Ngoding
+            </p>
+            <button type="button" style="padding:4px 14px;background:#2D6BE4;color:white;border:none;border-radius:4px;font-size:12px;cursor:pointer">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-title">✅ Penting — atribut name pada radio button</div>
+      Radio button yang berada dalam satu grup pilihan HARUS memiliki <code>name</code> yang sama. Ini yang membuat browser tahu bahwa hanya satu yang bisa dipilih. Jika name berbeda, keduanya bisa dipilih sekaligus dan menjadi seperti checkbox.
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 7b — Select, Textarea, &amp; Input Lanjutan
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="cm">&lt;!-- Dropdown --&gt;</span>
+<span class="ht">&lt;p&gt;</span><span class="tx">Jurusan:</span>
+  <span class="ht">&lt;select&gt;</span>
+    <span class="ht">&lt;option&gt;</span><span class="tx">Teknik Informatika</span><span class="ht">&lt;/option&gt;</span>
+    <span class="ht">&lt;option&gt;</span><span class="tx">Teknik Komputer</span><span class="ht">&lt;/option&gt;</span>
+    <span class="ht">&lt;option</span> <span class="at">selected</span><span class="ht">&gt;</span><span class="tx">Sistem Informasi</span><span class="ht">&lt;/option&gt;</span>
+  <span class="ht">&lt;/select&gt;</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- Textarea --&gt;</span>
+<span class="ht">&lt;p&gt;</span><span class="tx">Alamat:</span>
+  <span class="ht">&lt;textarea</span> <span class="at">cols=</span><span class="av">"30"</span>
+             <span class="at">rows=</span><span class="av">"4"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;/textarea&gt;</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- Progress & Meter --&gt;</span>
+<span class="ht">&lt;progress</span> <span class="at">value=</span><span class="av">"70"</span>
+           <span class="at">max=</span><span class="av">"100"</span><span class="ht">&gt;&lt;/progress&gt;</span>
+<span class="ht">&lt;meter</span> <span class="at">value=</span><span class="av">"175"</span>
+       <span class="at">max=</span><span class="av">"200"</span><span class="ht">&gt;&lt;/meter&gt;</span><span class="tx"> 175 cm</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <form style="font-size:13px" onsubmit="return false">
+            <p style="margin-bottom:8px">Jurusan:
+              <select style="font-size:12px">
+                <option>Teknik Informatika</option>
+                <option>Teknik Komputer</option>
+                <option selected>Sistem Informasi</option>
+              </select>
+            </p>
+            <p style="margin-bottom:8px">Alamat: <textarea cols="18" rows="3" style="font-size:12px;vertical-align:top"></textarea></p>
+            <p style="margin-bottom:4px">Progress: <progress value="70" max="100"></progress></p>
+            <p>Tinggi: <meter value="175" max="200"></meter> 175 cm</p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">✏️ Exercise 7</div>
+      <p>Buat form "Pendaftaran Member" sederhana yang berisi: nama lengkap (text), email (email), password (password), jenis kelamin (radio), hobi (minimal 3 checkbox), jurusan (select dengan 4 pilihan), dan tombol Daftar.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">💡 Lihat Contoh Jawaban</button>
+      <div class="hint-box">
+<pre>&lt;form action=""&gt;
+  &lt;p&gt;Nama: &lt;input type="text"&gt;&lt;/p&gt;
+  &lt;p&gt;Email: &lt;input type="email"&gt;&lt;/p&gt;
+  &lt;p&gt;Password: &lt;input type="password"&gt;&lt;/p&gt;
+  &lt;p&gt;Jenis Kelamin:
+    &lt;input type="radio" name="jk"&gt; L
+    &lt;input type="radio" name="jk"&gt; P
+  &lt;/p&gt;
+  &lt;p&gt;Hobi:
+    &lt;input type="checkbox"&gt; Membaca
+    &lt;input type="checkbox"&gt; Ngoding
+    &lt;input type="checkbox"&gt; Olahraga
+  &lt;/p&gt;
+  &lt;p&gt;Jurusan:
+    &lt;select&gt;
+      &lt;option&gt;TKJ&lt;/option&gt;
+      &lt;option&gt;RPL&lt;/option&gt;
+      &lt;option&gt;DKV&lt;/option&gt;
+      &lt;option&gt;Akuntansi&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/p&gt;
+  &lt;button type="submit"&gt;Daftar&lt;/button&gt;
+&lt;/form&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 8: ATRIBUT INPUT ═══ -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Atribut Input Penting</h2>
+    </div>
+
+    <div class="card">
+      <p>Setiap <code>&lt;input&gt;</code> bisa memiliki atribut tambahan yang mengontrol perilaku dan validasinya. Ini membuat form lebih user-friendly dan aman tanpa perlu JavaScript.</p>
+    </div>
+
+    <table class="comp-table">
+      <tr><th>Atribut</th><th>Fungsi</th><th>Contoh</th></tr>
+      <tr><td><code>placeholder</code></td><td>Teks petunjuk abu-abu di dalam input (hilang saat diketik)</td><td><code>placeholder="contoh@gmail.com"</code></td></tr>
+      <tr><td><code>required</code></td><td>Wajib diisi — form tidak bisa submit jika kosong</td><td><code>&lt;input type="text" required&gt;</code></td></tr>
+      <tr><td><code>disabled</code></td><td>Input tidak bisa diubah dan tidak terkirim</td><td><code>&lt;input type="text" disabled&gt;</code></td></tr>
+      <tr><td><code>autofocus</code></td><td>Input ini otomatis aktif saat halaman dimuat</td><td><code>&lt;input type="text" autofocus&gt;</code></td></tr>
+      <tr><td><code>autocomplete</code></td><td>Mengontrol saran otomatis browser (<code>on</code>/<code>off</code>)</td><td><code>autocomplete="off"</code></td></tr>
+      <tr><td><code>value</code></td><td>Nilai awal yang sudah terisi</td><td><code>value="Rp. 150.000"</code></td></tr>
+      <tr><td><code>min</code> / <code>max</code></td><td>Batas minimum/maksimum (untuk type number/date)</td><td><code>min="10" max="100"</code></td></tr>
+      <tr><td><code>accept</code></td><td>Filter jenis file untuk input type file</td><td><code>accept="image/*"</code></td></tr>
+    </table>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 8 — Atribut Input
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;p&gt;</span><span class="tx">No. ID:</span>
+  <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"text"</span>
+         <span class="at">value=</span><span class="av">"12345"</span>
+         <span class="at">disabled</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;p&gt;</span><span class="tx">Nama:</span>
+  <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"text"</span>
+         <span class="at">placeholder=</span><span class="av">"Nama lengkap"</span>
+         <span class="at">autofocus</span>
+         <span class="at">required</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;p&gt;</span><span class="tx">Email:</span>
+  <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"email"</span>
+         <span class="at">placeholder=</span><span class="av">"contoh@gmail.com"</span>
+         <span class="at">autocomplete=</span><span class="av">"off"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;p&gt;</span><span class="tx">Nilai (10-100):</span>
+  <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"number"</span>
+         <span class="at">min=</span><span class="av">"10"</span>
+         <span class="at">max=</span><span class="av">"100"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;p&gt;</span><span class="tx">Upload foto:</span>
+  <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"file"</span>
+         <span class="at">accept=</span><span class="av">"image/*"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/p&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <form style="font-size:13px" onsubmit="return false">
+            <p style="margin-bottom:8px">No. ID: <input type="text" value="12345" disabled style="font-size:12px"></p>
+            <p style="margin-bottom:8px">Nama: <input type="text" placeholder="Nama lengkap" required style="font-size:12px"></p>
+            <p style="margin-bottom:8px">Email: <input type="email" placeholder="contoh@gmail.com" autocomplete="off" style="font-size:12px"></p>
+            <p style="margin-bottom:8px">Nilai (10-100): <input type="number" min="10" max="100" style="font-size:12px;width:70px"></p>
+            <p>Upload foto: <input type="file" accept="image/*" style="font-size:12px"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-title">✅ Tips — placeholder vs value</div>
+      <strong>placeholder</strong>: teks petunjuk abu-abu, hilang saat user mengetik, TIDAK dikirim ke server.<br>
+      <strong>value</strong>: nilai nyata yang sudah terisi, bisa diubah user, DIKIRIM ke server.<br>
+      Gunakan <code>placeholder</code> untuk contoh format input, dan <code>value</code> untuk nilai default yang sebenarnya.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 9: STRUKTUR FORM ═══ -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2>Struktur Form: fieldset, label &amp; details</h2>
+    </div>
+
+    <div class="card">
+      <p>Form yang baik bukan hanya soal input — tapi juga soal organisasi dan aksesibilitas. Ada beberapa tag yang membantu mengelompokkan dan memperjelas elemen form:</p>
+      <ul style="margin-top:8px">
+        <li><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> — mengelompokkan input terkait dengan kotak dan judul</li>
+        <li><code>&lt;label&gt;</code> — menghubungkan teks keterangan dengan input secara semantik</li>
+        <li><code>&lt;details&gt;</code> + <code>&lt;summary&gt;</code> — konten yang bisa dibuka/ditutup (collapsible)</li>
+      </ul>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Analogi</div>
+      <code>&lt;fieldset&gt;</code> seperti <strong>kotak formulir fisik</strong> yang punya judul ("Data Pribadi", "Data Orang Tua"). Semua kolom isian terkait dikelompokkan di dalamnya. <code>&lt;label&gt;</code> seperti tulisan di samping kotak isian — saat kamu klik tulisan itu, kursor langsung masuk ke kotak isian tersebut.
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Demo 9 — fieldset, label &amp; details
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;fieldset&gt;</span>
+  <span class="ht">&lt;legend&gt;</span><span class="tx">Data Peserta</span><span class="ht">&lt;/legend&gt;</span>
+
+  <span class="cm">&lt;!-- label for="id" menghubungkan
+       ke input dengan id="id" --&gt;</span>
+  <span class="ht">&lt;p&gt;</span>
+    <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"nama"</span><span class="ht">&gt;</span><span class="tx">Nama:</span><span class="ht">&lt;/label&gt;</span>
+    <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"text"</span>
+           <span class="at">id=</span><span class="av">"nama"</span>
+           <span class="at">name=</span><span class="av">"nama"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;/p&gt;</span>
+
+  <span class="ht">&lt;p&gt;</span>
+    <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"laki"</span><span class="ht">&gt;</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span>
+             <span class="at">id=</span><span class="av">"laki"</span>
+             <span class="at">name=</span><span class="av">"jk"</span><span class="ht">&gt;</span>
+      <span class="tx">Laki-laki</span>
+    <span class="ht">&lt;/label&gt;</span>
+  <span class="ht">&lt;/p&gt;</span>
+<span class="ht">&lt;/fieldset&gt;</span>
+
+<span class="cm">&lt;!-- Collapsible dengan details --&gt;</span>
+<span class="ht">&lt;details&gt;</span>
+  <span class="ht">&lt;summary&gt;</span><span class="tx">Syarat &amp; Ketentuan</span><span class="ht">&lt;/summary&gt;</span>
+  <span class="ht">&lt;p&gt;</span><span class="tx">Data kamu aman bersama kami.</span><span class="ht">&lt;/p&gt;</span>
+<span class="ht">&lt;/details&gt;</span></pre>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          <form style="font-size:13px" onsubmit="return false">
+            <fieldset style="margin-bottom:10px">
+              <legend style="font-size:12px">Data Peserta</legend>
+              <p style="margin:6px 0">
+                <label for="demo-nama" style="font-size:12px">Nama:</label>
+                <input type="text" id="demo-nama" style="font-size:12px;margin-left:4px">
+              </p>
+              <p style="margin:6px 0">
+                <label for="demo-laki" style="font-size:12px">
+                  <input type="radio" id="demo-laki" name="demo-jk"> Laki-laki
+                </label>
+                <label for="demo-perempuan" style="font-size:12px;margin-left:8px">
+                  <input type="radio" id="demo-perempuan" name="demo-jk"> Perempuan
+                </label>
+              </p>
+            </fieldset>
+            <details style="font-size:12px">
+              <summary style="cursor:pointer;color:#2D6BE4">Syarat &amp; Ketentuan</summary>
+              <p style="margin-top:6px;color:#555">Data kamu aman bersama kami.</p>
+            </details>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-title">✅ Kenapa label penting?</div>
+      Dengan <code>&lt;label for="id"&gt;</code> yang dihubungkan ke <code>&lt;input id="id"&gt;</code>, pengguna bisa <strong>mengklik teks labelnya</strong> dan kursor langsung masuk ke kolom isian. Ini sangat membantu di mobile dan bagi pengguna screen reader (aksesibilitas).
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 10: MINI PROJECT ═══ -->
+  <section class="section" id="s10">
+    <div class="section-header">
+      <span class="section-num">🎯</span>
+      <h2>Mini Project: Formulir Pendaftaran SMK</h2>
+    </div>
+
+    <div class="card">
+      <p>Saatnya menggabungkan semua yang telah dipelajari! Kamu akan membuat formulir pendaftaran siswa SMK yang lengkap — mencakup <code>&lt;fieldset&gt;</code> untuk pengelompokan data, berbagai jenis <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;radio&gt;</code>, dan validasi dengan <code>required</code>.</p>
+      <br>
+      <p><strong>Form ini harus memiliki bagian:</strong></p>
+      <ol style="margin-top:8px;padding-left:20px">
+        <li>Data Calon Siswa (nama, tempat lahir, jenis kelamin, alamat, tanggal lahir, NIK, NISN, agama)</li>
+        <li>Data Orang Tua / Wali (nama, pekerjaan, penghasilan)</li>
+        <li>Pilihan Jurusan</li>
+        <li>Pernyataan persetujuan (<code>&lt;details&gt;</code> + checkbox)</li>
+        <li>Tombol Kirim</li>
+      </ol>
+    </div>
+
+    <div class="callout analogy">
+      <div class="callout-title">💡 Strategi Pengerjaan</div>
+      Kerjakan section per section. Buat satu <code>&lt;fieldset&gt;</code>, isi dengan input-input di dalamnya, uji di browser, baru lanjut ke fieldset berikutnya. Jangan mencoba menulis semua sekaligus!
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span><span class="demo-dot dot-y"></span><span class="demo-dot dot-g"></span>
+          &nbsp; Kode Mini Project — Formulir Pendaftaran SMK
+        </div>
+        <button class="copy-btn" onclick="copyCode(this)">⎘ Copy</button>
+      </div>
+      <div class="demo-body full">
+        <div class="code-pane">
+          <pre><span class="ht">&lt;h2&gt;</span><span class="tx">Formulir Pendaftaran SMK Sekolahku</span><span class="ht">&lt;/h2&gt;</span>
+
+<span class="ht">&lt;form</span> <span class="at">action=</span><span class="av">""</span><span class="ht">&gt;</span>
+
+  <span class="cm">&lt;!-- ── BAGIAN 1: DATA CALON SISWA ── --&gt;</span>
+  <span class="ht">&lt;fieldset&gt;</span>
+    <span class="ht">&lt;legend&gt;</span><span class="tx">Data Calon Siswa</span><span class="ht">&lt;/legend&gt;</span>
+
+    <span class="ht">&lt;p&gt;</span>
+      <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"nama"</span><span class="ht">&gt;</span><span class="tx">Nama Lengkap:</span><span class="ht">&lt;/label&gt;</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"text"</span> <span class="at">id=</span><span class="av">"nama"</span>
+             <span class="at">placeholder=</span><span class="av">"Nama Calon Siswa"</span>
+             <span class="at">required</span><span class="ht">&gt;</span>
+    <span class="ht">&lt;/p&gt;</span>
+
+    <span class="ht">&lt;p&gt;</span>
+      <span class="ht">&lt;label&gt;</span><span class="tx">Jenis Kelamin:</span><span class="ht">&lt;/label&gt;</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span> <span class="at">name=</span><span class="av">"jk"</span><span class="ht">&gt;</span><span class="tx"> Laki-laki</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span> <span class="at">name=</span><span class="av">"jk"</span><span class="ht">&gt;</span><span class="tx"> Perempuan</span>
+    <span class="ht">&lt;/p&gt;</span>
+
+    <span class="ht">&lt;p&gt;</span>
+      <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"tgl"</span><span class="ht">&gt;</span><span class="tx">Tanggal Lahir:</span><span class="ht">&lt;/label&gt;</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"date"</span> <span class="at">id=</span><span class="av">"tgl"</span><span class="ht">&gt;</span>
+    <span class="ht">&lt;/p&gt;</span>
+
+    <span class="ht">&lt;p&gt;</span>
+      <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"agama"</span><span class="ht">&gt;</span><span class="tx">Agama:</span><span class="ht">&lt;/label&gt;</span>
+      <span class="ht">&lt;select</span> <span class="at">id=</span><span class="av">"agama"</span><span class="ht">&gt;</span>
+        <span class="ht">&lt;option&gt;</span><span class="tx">Islam</span><span class="ht">&lt;/option&gt;</span>
+        <span class="ht">&lt;option&gt;</span><span class="tx">Kristen</span><span class="ht">&lt;/option&gt;</span>
+        <span class="ht">&lt;option&gt;</span><span class="tx">Katolik</span><span class="ht">&lt;/option&gt;</span>
+        <span class="ht">&lt;option&gt;</span><span class="tx">Hindu</span><span class="ht">&lt;/option&gt;</span>
+        <span class="ht">&lt;option&gt;</span><span class="tx">Buddha</span><span class="ht">&lt;/option&gt;</span>
+      <span class="ht">&lt;/select&gt;</span>
+    <span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;/fieldset&gt;</span>
+
+  <span class="cm">&lt;!-- ── BAGIAN 2: DATA ORANG TUA ── --&gt;</span>
+  <span class="ht">&lt;fieldset&gt;</span>
+    <span class="ht">&lt;legend&gt;</span><span class="tx">Data Orang Tua</span><span class="ht">&lt;/legend&gt;</span>
+
+    <span class="ht">&lt;p&gt;</span>
+      <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"ayah"</span><span class="ht">&gt;</span><span class="tx">Nama Ayah:</span><span class="ht">&lt;/label&gt;</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"text"</span> <span class="at">id=</span><span class="av">"ayah"</span><span class="ht">&gt;</span>
+    <span class="ht">&lt;/p&gt;</span>
+
+    <span class="ht">&lt;p&gt;</span><span class="tx">Penghasilan Ayah:</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span>
+             <span class="at">name=</span><span class="av">"gaji_ayah"</span><span class="ht">&gt;</span><span class="tx"> &lt; 3 juta</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span>
+             <span class="at">name=</span><span class="av">"gaji_ayah"</span><span class="ht">&gt;</span><span class="tx"> 3–5 juta</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"radio"</span>
+             <span class="at">name=</span><span class="av">"gaji_ayah"</span><span class="ht">&gt;</span><span class="tx"> &gt; 5 juta</span>
+    <span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;/fieldset&gt;</span>
+
+  <span class="cm">&lt;!-- ── BAGIAN 3: JURUSAN ── --&gt;</span>
+  <span class="ht">&lt;p&gt;</span>
+    <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"jurusan"</span><span class="ht">&gt;</span><span class="tx">Pilih Jurusan:</span><span class="ht">&lt;/label&gt;</span>
+    <span class="ht">&lt;select</span> <span class="at">id=</span><span class="av">"jurusan"</span><span class="ht">&gt;</span>
+      <span class="ht">&lt;option&gt;</span><span class="tx">Teknik Komputer</span><span class="ht">&lt;/option&gt;</span>
+      <span class="ht">&lt;option&gt;</span><span class="tx">Teknik Informatika</span><span class="ht">&lt;/option&gt;</span>
+      <span class="ht">&lt;option&gt;</span><span class="tx">Teknik Kimia</span><span class="ht">&lt;/option&gt;</span>
+    <span class="ht">&lt;/select&gt;</span>
+  <span class="ht">&lt;/p&gt;</span>
+
+  <span class="cm">&lt;!-- ── BAGIAN 4: PERNYATAAN ── --&gt;</span>
+  <span class="ht">&lt;details&gt;</span>
+    <span class="ht">&lt;summary&gt;</span><span class="tx">Pernyataan &amp; Persetujuan</span><span class="ht">&lt;/summary&gt;</span>
+    <span class="ht">&lt;p&gt;</span><span class="tx">Saya menyatakan data yang diisi adalah benar.</span><span class="ht">&lt;/p&gt;</span>
+    <span class="ht">&lt;p&gt;</span>
+      <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"checkbox"</span> <span class="at">required</span><span class="ht">&gt;</span>
+      <span class="tx">Saya setuju dengan persyaratan di atas.</span>
+    <span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;/details&gt;</span>
+
+  <span class="ht">&lt;br&gt;</span>
+  <span class="ht">&lt;button</span> <span class="at">type=</span><span class="av">"submit"</span><span class="ht">&gt;</span>
+    <span class="tx">Kirim Data Pendaftaran</span>
+  <span class="ht">&lt;/button&gt;</span>
+
+<span class="ht">&lt;/form&gt;</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-title">✅ Tantangan Tambahan</div>
+      Setelah berhasil membuat form dasar, coba tambahkan:
+      <ol style="padding-left:18px;margin-top:6px">
+        <li>Bagian "Data Ibu" mirip seperti "Data Ayah"</li>
+        <li>Field NISN dan NIK dengan <code>placeholder</code> format yang benar</li>
+        <li>Upload foto dengan <code>&lt;input type="file" accept="image/*"&gt;</code></li>
+        <li>Beri <code>required</code> pada field-field yang wajib diisi</li>
+      </ol>
+    </div>
+
+    <div class="reflection">
+      <strong>🤔 Refleksi Akhir Modul:</strong> Kamu sudah belajar dari tag teks sederhana sampai form yang kompleks. Coba buka browser, ketik <strong>F12</strong>, dan klik "Inspect" pada sebuah website favoritmu — kamu sekarang sudah bisa membaca dan memahami kode HTML yang ada di sana!
+    </div>
+  </section>
+
+</main>
+
+<script>
+  function toggleHint(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle('open');
+    btn.textContent = box.classList.contains('open') ? '🔼 Sembunyikan' : '💡 Lihat Contoh Jawaban';
+  }
+
+  function copyCode(btn) {
+    const pre = btn.closest('.demo-block').querySelector('pre');
+    const text = pre.innerText || pre.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied!';
+      btn.style.color = '#28C840';
+      setTimeout(() => { btn.textContent = '⎘ Copy'; btn.style.color = ''; }, 2000);
+    });
+  }
+
+  // Highlight active sidebar item on scroll
+  const sections = document.querySelectorAll('.section');
+  const tocItems = document.querySelectorAll('.toc-item');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+    });
+    tocItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === '#' + current) item.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
