@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul CSS — Dasar-Dasar CSS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="modul_01_css.css">
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <div class="tag">{ css } modul</div>
+    <h2>Dasar-Dasar CSS</h2>
+    <p>Belajar step by step dengan contoh langsung</p>
+    <div class="progress-bar">
+      <div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg done"></div>
+      <div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg"></div>
+      <div class="prog-seg"></div><div class="prog-seg"></div><div class="prog-seg"></div><div class="prog-seg"></div>
+    </div>
+  </div>
+  <a class="toc-item active" href="#s1"><span class="toc-num">01</span> Pengenalan CSS</a>
+  <a class="toc-item" href="#s2"><span class="toc-num">02</span> CSS Selectors</a>
+  <a class="toc-item" href="#s3"><span class="toc-num">03</span> Box Model</a>
+  <a class="toc-item" href="#s4"><span class="toc-num">04</span> Background</a>
+  <a class="toc-item" href="#s5"><span class="toc-num">05</span> Form &amp; Box-Sizing</a>
+  <a class="toc-item" href="#s6"><span class="toc-num">06</span> Aksesibilitas &amp; Hover</a>
+  <a class="toc-item" href="#s7"><span class="toc-num">07</span> Navigasi Vertikal</a>
+  <a class="toc-item" href="#s8"><span class="toc-num">08</span> Navigasi Horizontal</a>
+  <a class="toc-item" href="#s9"><span class="toc-num">09</span> Float &amp; Clear</a>
+  <a class="toc-item" href="#s10"><span class="toc-num">&#127919;</span> Homework</a>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<main id="main">
+
+  <header class="page-header">
+    <div class="eyebrow">// Modul CSS — Dasar-Dasar</div>
+    <h1>Belajar CSS dari Nol</h1>
+    <p>CSS (<em>Cascading Style Sheets</em>) adalah bahasa untuk mengatur tampilan dan estetika halaman web. Setiap demo block sekarang punya dua tab — <strong>HTML</strong> dan <strong>CSS</strong> — agar kamu bisa melihat keduanya secara terpisah.</p>
+    <div class="topics-grid">
+      <span class="topic-chip">{ } Selectors</span>
+      <span class="topic-chip">&#9633; Box Model</span>
+      <span class="topic-chip">&#127771; Background</span>
+      <span class="topic-chip">&#128203; Form Layout</span>
+      <span class="topic-chip">&#8801; Navigasi</span>
+      <span class="topic-chip">&#8614; Float &amp; Clear</span>
+    </div>
+  </header>
+
+  <!-- S1 -->
+  <section class="section" id="s1">
+    <div class="section-header"><span class="section-num">01</span><h2>Pengenalan CSS &amp; Cara Integrasi</h2></div>
+    <div class="card">
+      <p>CSS diintegrasikan ke HTML dengan tiga cara. Cara terbaik yang paling direkomendasikan adalah <strong>External CSS</strong> — file CSS terpisah yang dihubungkan melalui tag <code>&lt;link&gt;</code> di dalam <code>&lt;head&gt;</code>.</p>
+    </div>
+    <div class="callout analogy">
+      <div class="callout-title">&#128161; Analogi</div>
+      Bayangkan HTML adalah <strong>kerangka rumah</strong>. CSS adalah <strong>desain interior</strong> — cat warna dinding, jenis lantai, tata letak furnitur. External CSS seperti buku panduan desain yang bisa dipakai untuk banyak halaman sekaligus.
+    </div>
+    <table class="comp-table">
+      <tr><th>Metode</th><th>Cara</th><th>Rekomendasi</th></tr>
+      <tr><td><strong>Inline CSS</strong></td><td><code>style="color:red"</code> langsung di tag</td><td>&#10060; Hindari — sulit di-maintain</td></tr>
+      <tr><td><strong>Internal CSS</strong></td><td>Tag <code>&lt;style&gt;</code> di dalam <code>&lt;head&gt;</code></td><td>&#9888;&#65039; Oke untuk halaman kecil</td></tr>
+      <tr><td><strong>External CSS</strong></td><td>File <code>.css</code> terpisah via <code>&lt;link&gt;</code></td><td>&#9989; Best practice industri</td></tr>
+    </table>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 1 — Integrasi External CSS
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Di dalam file HTML --&gt;</span>
+<span class="ht">&lt;head&gt;</span>
+  <span class="ht">&lt;link</span> <span class="at">rel=</span><span class="av">"stylesheet"</span>
+        <span class="at">href=</span><span class="av">"style.css"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/head&gt;</span>
+<span class="ht">&lt;body&gt;</span>
+  <span class="ht">&lt;h1&gt;</span><span class="tx">Judul Halaman</span><span class="ht">&lt;/h1&gt;</span>
+  <span class="ht">&lt;p&gt;</span><span class="tx">Selamat datang!</span><span class="ht">&lt;/p&gt;</span>
+<span class="ht">&lt;/body&gt;</span>
+
+<span class="cm">&lt;!-- Inline (langsung di tag) --&gt;</span>
+<span class="ht">&lt;h1</span> <span class="at">style=</span><span class="av">"color: aqua;"</span><span class="ht">&gt;</span>
+  <span class="tx">Judul Inline CSS</span>
+<span class="ht">&lt;/h1&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="cm">/* Di dalam file style.css */</span>
+<span class="sel">h1</span> {
+  <span class="prop">color</span>: <span class="val">royalblue</span>;
+  <span class="prop">font-size</span>: <span class="val">2em</span>;
+  <span class="prop">font-family</span>: <span class="val">'Inter', sans-serif</span>;
+}
+
+<span class="sel">p</span> {
+  <span class="prop">color</span>: <span class="val">#374151</span>;
+  <span class="prop">font-size</span>: <span class="val">16px</span>;
+  <span class="prop">line-height</span>: <span class="val">1.7</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<h3 style="color:royalblue;font-size:1.4em;margin-bottom:8px">Judul via External CSS</h3>
+<h3 style="color:aqua;font-size:1.1em;background:#1a1d2e;padding:4px 8px;border-radius:4px;margin-bottom:8px">Judul via Inline CSS</h3>
+<p style="font-size:12px;color:#6B7280">External CSS lebih rapi &amp; mudah dikelola &#128071;</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-title">&#9989; Tips</div>
+      Letakkan tag <code>&lt;link&gt;</code> di dalam <code>&lt;head&gt;</code>, <strong>bukan</strong> di dalam <code>&lt;body&gt;</code>. Ini memastikan CSS sudah dimuat sebelum konten halaman tampil, mencegah "flash of unstyled content" (FOUC).
+    </div>
+    
+    <div class="exercise">
+      <div class="exercise-title">&#9999;&#65039; Exercise 1</div>
+      <p>Buat dua file: <code>latihan1.html</code> dan <code>latihan1.css</code>. Di file HTML, hubungkan ke file CSS menggunakan <code>&lt;link&gt;</code>. Di file CSS, beri warna biru pada semua tag <code>&lt;h1&gt;</code> dan warna abu-abu pada <code>&lt;p&gt;</code>.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">&#128161; Lihat Contoh Jawaban</button>
+      <div class="hint-box"><pre>&lt;!-- latihan1.html --&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="latihan1.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Judul Halaman&lt;/h1&gt;
+  &lt;p&gt;Ini adalah paragraf teks.&lt;/p&gt;
+&lt;/body&gt;
+
+/* latihan1.css */
+h1 { color: blue; }
+p  { color: gray; }</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S2 -->
+  <section class="section" id="s2">
+    <div class="section-header"><span class="section-num">02</span><h2>CSS Selectors</h2></div>
+    <div class="card">
+      <p>Selector menentukan <strong>elemen mana</strong> yang akan diberi gaya. Tiga jenis selector dasar yang wajib dikuasai adalah Tag, Class, dan ID selector.</p>
+    </div>
+    <div class="callout analogy">
+      <div class="callout-title">&#128161; Analogi</div>
+      Selector seperti <strong>cara memanggil orang</strong>. Tag selector = panggil semua "dokter". Class selector = panggil semua yang punya topi merah. ID selector = panggil satu orang unik dengan nama lengkapnya.
+    </div>
+    <table class="comp-table">
+      <tr><th>Selector</th><th>Sintaks CSS</th><th>Target</th><th>Kapan Dipakai</th></tr>
+      <tr><td><strong>Tag</strong></td><td><code>h2 { }</code></td><td>Semua tag <code>&lt;h2&gt;</code></td><td>Gaya global untuk semua elemen sejenis</td></tr>
+      <tr><td><strong>Class</strong></td><td><code>.artikel { }</code></td><td>Semua elemen dengan <code>class="artikel"</code></td><td>Kelompok elemen bergaya sama</td></tr>
+      <tr><td><strong>ID</strong></td><td><code>#hero { }</code></td><td>Satu elemen dengan <code>id="hero"</code></td><td>Satu elemen unik saja</td></tr>
+      <tr><td><strong>Attribute</strong></td><td><code>input[type="email"] { }</code></td><td>Input bertipe email</td><td>Targeting berdasarkan atribut</td></tr>
+    </table>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 2 — CSS Selectors
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Tag Selector --&gt;</span>
+<span class="ht">&lt;h2&gt;</span><span class="tx">Ini Tag Selector</span><span class="ht">&lt;/h2&gt;</span>
+
+<span class="cm">&lt;!-- Class Selector --&gt;</span>
+<span class="ht">&lt;p</span> <span class="at">class=</span><span class="av">"highlight"</span><span class="ht">&gt;</span>
+  <span class="tx">Ini Class Selector</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- ID Selector --&gt;</span>
+<span class="ht">&lt;p</span> <span class="at">id=</span><span class="av">"spesial"</span><span class="ht">&gt;</span>
+  <span class="tx">Ini ID Selector</span>
+<span class="ht">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- Attribute Selector --&gt;</span>
+<span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"email"</span>
+       <span class="at">placeholder=</span><span class="av">"test@mail.com"</span><span class="ht">&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="cm">/* Tag Selector */</span>
+<span class="sel">h2</span> { <span class="prop">color</span>: <span class="val">royalblue</span>; }
+
+<span class="cm">/* Class Selector */</span>
+<span class="sel">.highlight</span> { <span class="prop">color</span>: <span class="val">crimson</span>; }
+
+<span class="cm">/* ID Selector */</span>
+<span class="sel">#spesial</span> {
+  <span class="prop">color</span>: <span class="val">goldenrod</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+}
+
+<span class="cm">/* Attribute Selector */</span>
+<span class="sel">input[type="email"]</span> {
+  <span class="prop">border</span>: <span class="val">2px solid royalblue</span>;
+  <span class="prop">border-radius</span>: <span class="val">4px</span>;
+  <span class="prop">padding</span>: <span class="val">4px 8px</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<h4 style="color:royalblue;font-size:1em;margin-bottom:6px">Ini Tag Selector (h4)</h4>
+<p style="color:crimson;font-size:13px;margin-bottom:6px">Ini Class Selector (.highlight)</p>
+<p style="color:goldenrod;font-weight:bold;font-size:13px;margin-bottom:10px">Ini ID Selector (#spesial)</p>
+<p style="font-size:12px;color:#555;margin-bottom:4px">Email input (border biru):</p>
+<input type="email" placeholder="test@mail.com" style="border:2px solid royalblue;padding:4px 8px;border-radius:4px;font-size:12px;width:100%;box-sizing:border-box">
+        </div>
+      </div>
+    </div>
+    <div class="callout warning">
+      <div class="callout-title">&#9888;&#65039; Common Mistake</div>
+      Jangan terlalu banyak memakai ID selector untuk styling! ID bersifat unik dan spesifisitasnya sangat tinggi, membuatnya sulit di-override. Gunakan <strong>class</strong> untuk styling, simpan <strong>ID</strong> untuk JavaScript atau anchor link.
+    </div>
+    
+    <div class="exercise">
+      <div class="exercise-title">&#9999;&#65039; Exercise 2</div>
+      <p>Buat file CSS yang memberi warna berbeda pada: semua <code>&lt;p&gt;</code> (hijau), elemen dengan class <code>.penting</code> (merah tebal), dan elemen dengan id <code>#catatan</code> (biru miring).</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">&#128161; Lihat Contoh Jawaban</button>
+      <div class="hint-box"><pre>p           { color: green; }
+.penting    { color: red; font-weight: bold; }
+#catatan    { color: blue; font-style: italic; }</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S3 -->
+  <section class="section" id="s3">
+    <div class="section-header"><span class="section-num">03</span><h2>CSS Box Model &amp; Tipografi</h2></div>
+    <div class="card">
+      <p>Setiap elemen HTML diperlakukan sebagai sebuah <strong>kotak (box)</strong>. Memahami anatomi kotak ini adalah kunci untuk mengontrol tata letak dan jarak antar elemen.</p>
+      <ul style="margin-top:8px">
+        <li><strong>Content</strong> — area isi teks/gambar, dikontrol dengan <code>width</code> &amp; <code>height</code></li>
+        <li><strong>Padding</strong> — jarak <em>dalam</em> antara content dan border</li>
+        <li><strong>Border</strong> — garis tepi di sekeliling padding</li>
+        <li><strong>Margin</strong> — jarak <em>luar</em> antara elemen dengan elemen lain</li>
+      </ul>
+    </div>
+    <div class="callout analogy">
+      <div class="callout-title">&#128161; Analogi</div>
+      Bayangkan sebuah <strong>bingkai foto</strong>. <em>Foto</em> = <strong>Content</strong>. <em>Busa dalam bingkai</em> = <strong>Padding</strong>. <em>Kayu bingkai</em> = <strong>Border</strong>. <em>Jarak antar bingkai di dinding</em> = <strong>Margin</strong>.
+    </div>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 3 — CSS Box Model
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Elemen dengan class .kotak --&gt;</span>
+<span class="ht">&lt;div</span> <span class="at">class=</span><span class="av">"kotak"</span><span class="ht">&gt;</span>
+  <span class="tx">Isi Kotak</span>
+<span class="ht">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Elemen paragraf biasa --&gt;</span>
+<span class="ht">&lt;p</span> <span class="at">class=</span><span class="av">"teks-artikel"</span><span class="ht">&gt;</span>
+  <span class="tx">Teks dengan tipografi custom.</span>
+<span class="ht">&lt;/p&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="sel">.kotak</span> {
+  <span class="prop">width</span>: <span class="val">200px</span>;
+  <span class="prop">height</span>: <span class="val">60px</span>;
+  <span class="prop">padding</span>: <span class="val">10px</span>;
+  <span class="prop">border</span>: <span class="val">5px solid #2D6BE4</span>;
+  <span class="prop">border-radius</span>: <span class="val">20px</span>;
+  <span class="prop">margin</span>: <span class="val">auto</span>; <span class="cm">/* Tengah horizontal */</span>
+  <span class="prop">background-color</span>: <span class="val">#EBF1FD</span>;
+}
+
+<span class="cm">/* Tipografi */</span>
+<span class="sel">.teks-artikel</span> {
+  <span class="prop">font-family</span>: <span class="val">'Inter', sans-serif</span>;
+  <span class="prop">font-size</span>: <span class="val">16px</span>;
+  <span class="prop">line-height</span>: <span class="val">1.7</span>;
+  <span class="prop">font-weight</span>: <span class="val">500</span>;
+  <span class="prop">letter-spacing</span>: <span class="val">0.02em</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<div style="background:#E8F7F1;border:2px dashed #1A9E5F;padding:8px;border-radius:8px;text-align:center;font-size:10px;color:#0E5C37;margin-bottom:10px">
+  MARGIN
+  <div style="background:#FEF3E2;border:2px dashed #E8912D;padding:8px;margin-top:6px;border-radius:4px">
+    PADDING
+    <div style="background:#2D6BE4;border:4px solid #1A3A7A;padding:8px;margin-top:6px;border-radius:8px;color:white;font-weight:bold;font-size:11px">CONTENT (width x height)</div>
+    BORDER &#8593;
+  </div>
+</div>
+<div style="width:180px;height:50px;padding:8px;border:4px solid #2D6BE4;border-radius:16px;margin:0 auto;background:#EBF1FD;text-align:center;font-size:12px;font-weight:bold;color:#2D6BE4;line-height:32px">Kotak Box Model</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout info">
+      <div class="callout-title">&#8505;&#65039; margin: auto</div>
+      Trik <code>margin: auto</code> pada elemen block (yang punya <code>width</code>) akan membuat elemen itu <strong>terpusat secara horizontal</strong> di dalam container-nya.
+    </div>
+    
+    <div class="exercise">
+      <div class="exercise-title">&#9999;&#65039; Exercise 3</div>
+      <p>Buat sebuah <code>&lt;div&gt;</code> dengan class <code>.kartu</code> yang: lebar 300px, tinggi 120px, padding 20px, border biru 3px solid, border-radius 12px, dan berada di tengah halaman.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">&#128161; Lihat Contoh Jawaban</button>
+      <div class="hint-box"><pre>.kartu {
+  width: 300px;
+  height: 120px;
+  padding: 20px;
+  border: 3px solid blue;
+  border-radius: 12px;
+  margin: 0 auto;
+  background-color: #EBF1FD;
+}</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S4 -->
+  <section class="section" id="s4">
+    <div class="section-header"><span class="section-num">04</span><h2>Properti Latar Belakang (Background)</h2></div>
+    <div class="card">
+      <p>CSS memungkinkan pengaturan background yang kompleks — dari warna solid, gradient, hingga gambar. Properti-properti ini sangat sering dipakai untuk membuat <em>hero section</em>, <em>jumbotron</em>, atau banner.</p>
+    </div>
+    <table class="comp-table">
+      <tr><th>Properti</th><th>Fungsi</th><th>Nilai Umum</th></tr>
+      <tr><td><code>background-color</code></td><td>Warna latar belakang solid</td><td><code>#hex</code>, <code>rgb()</code>, <code>nama-warna</code></td></tr>
+      <tr><td><code>background-image</code></td><td>Gambar sebagai background</td><td><code>url('file.jpg')</code></td></tr>
+      <tr><td><code>background-size</code></td><td>Ukuran gambar background</td><td><code>cover</code>, <code>contain</code>, <code>100%</code></td></tr>
+      <tr><td><code>background-repeat</code></td><td>Apakah gambar diulang</td><td><code>no-repeat</code>, <code>repeat-x</code></td></tr>
+      <tr><td><code>background-attachment</code></td><td>Apakah gambar ikut scroll</td><td><code>fixed</code> (parallax), <code>scroll</code></td></tr>
+      <tr><td><code>background-position</code></td><td>Posisi gambar</td><td><code>center</code>, <code>top left</code></td></tr>
+    </table>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 4 — Background Properties
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Jumbotron / Hero Section --&gt;</span>
+<span class="ht">&lt;div</span> <span class="at">class=</span><span class="av">"jumbotron"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;h1&gt;</span><span class="tx">Selamat Datang!</span><span class="ht">&lt;/h1&gt;</span>
+<span class="ht">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Gradient box --&gt;</span>
+<span class="ht">&lt;div</span> <span class="at">class=</span><span class="av">"gradient-box"</span><span class="ht">&gt;</span>
+  <span class="tx">Gradient Background</span>
+<span class="ht">&lt;/div&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="sel">.jumbotron</span> {
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">height</span>: <span class="val">200px</span>;
+  <span class="prop">background-image</span>: <span class="val">url('gambar.jpg')</span>;
+  <span class="prop">background-size</span>: <span class="val">cover</span>;
+  <span class="prop">background-repeat</span>: <span class="val">no-repeat</span>;
+  <span class="prop">background-position</span>: <span class="val">center</span>;
+}
+
+<span class="cm">/* Gradient sebagai background */</span>
+<span class="sel">.gradient-box</span> {
+  <span class="prop">background</span>: <span class="val">linear-gradient(
+    135deg,
+    #2D6BE4,
+    #9B59B6
+  )</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+}
+
+<span class="cm">/* Efek Parallax saat scroll */</span>
+<span class="sel">.parallax</span> {
+  <span class="prop">background-attachment</span>: <span class="val">fixed</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<div style="width:100%;height:70px;background:linear-gradient(135deg,#2D6BE4,#9B59B6);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:13px;margin-bottom:8px">Gradient 135deg</div>
+<div style="width:100%;height:55px;background:linear-gradient(to right,#1A9E5F,#2D6BE4);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;margin-bottom:8px">Linear Gradient kiri ke kanan</div>
+<div style="display:flex;gap:8px">
+  <div style="flex:1;height:36px;background:#EBF1FD;border:1px solid #2D6BE4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#2D6BE4">solid color</div>
+  <div style="flex:1;height:36px;background:radial-gradient(circle,#FEF3E2,#E8912D);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#7A4A0E">radial gradient</div>
+</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-title">&#9989; Tips — cover vs contain</div>
+      <strong>cover</strong>: gambar diperbesar hingga menutupi seluruh area (bisa terpotong). <strong>contain</strong>: gambar diperkecil hingga seluruh gambar terlihat penuh. Untuk <em>hero section</em>, biasanya pakai <code>cover</code>.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S5 -->
+  <section class="section" id="s5">
+    <div class="section-header"><span class="section-num">05</span><h2>Pembuatan Form &amp; Box-Sizing</h2></div>
+    <div class="card">
+      <p>Menata form agar rapi membutuhkan dua konsep kunci:</p>
+      <ul style="margin-top:8px">
+        <li><code>display: block</code> — membuat input turun ke baris baru secara otomatis</li>
+        <li><code>box-sizing: border-box</code> — ukuran total elemen sudah termasuk padding &amp; border, tidak "melar"</li>
+      </ul>
+    </div>
+    <div class="callout analogy">
+      <div class="callout-title">&#128161; Analogi — box-sizing</div>
+      Tanpa <code>border-box</code>: kamu memesan kamar 3x3 meter, tapi dinding dan busa dihitung <em>di luar</em> 3 meter itu. Dengan <code>border-box</code>: 3x3 meter sudah termasuk segalanya — presisi sesuai pesanan.
+    </div>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 5 — Form Styling &amp; Box-Sizing
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="ht">&lt;form</span> <span class="at">action=</span><span class="av">""</span><span class="ht">&gt;</span>
+
+  <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"user-email"</span><span class="ht">&gt;</span>
+    <span class="tx">Email:</span>
+  <span class="ht">&lt;/label&gt;</span>
+  <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"email"</span>
+         <span class="at">id=</span><span class="av">"user-email"</span>
+         <span class="at">name=</span><span class="av">"email"</span><span class="ht">&gt;</span>
+
+  <span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"pass"</span><span class="ht">&gt;</span>
+    <span class="tx">Password:</span>
+  <span class="ht">&lt;/label&gt;</span>
+  <span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"password"</span>
+         <span class="at">id=</span><span class="av">"pass"</span>
+         <span class="at">name=</span><span class="av">"password"</span><span class="ht">&gt;</span>
+
+  <span class="ht">&lt;button</span> <span class="at">type=</span><span class="av">"submit"</span><span class="ht">&gt;</span>
+    <span class="tx">Masuk</span>
+  <span class="ht">&lt;/button&gt;</span>
+
+<span class="ht">&lt;/form&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="cm">/* Reset global yang baik */</span>
+<span class="sel">*</span> { <span class="prop">box-sizing</span>: <span class="val">border-box</span>; }
+
+<span class="sel">input</span>, <span class="sel">textarea</span> {
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">padding</span>: <span class="val">10px 14px</span>;
+  <span class="prop">border</span>: <span class="val">1px solid #CBD5E1</span>;
+  <span class="prop">border-radius</span>: <span class="val">8px</span>;
+  <span class="prop">font-size</span>: <span class="val">14px</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">12px</span>;
+}
+
+<span class="cm">/* Attribute selector */</span>
+<span class="sel">input[type="email"]</span> {
+  <span class="prop">border-color</span>: <span class="val">#2D6BE4</span>;
+}
+
+<span class="sel">input:focus</span> {
+  <span class="prop">outline</span>: <span class="val">none</span>;
+  <span class="prop">border-color</span>: <span class="val">#2D6BE4</span>;
+  <span class="prop">box-shadow</span>: <span class="val">0 0 0 3px rgba(45,107,228,.2)</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<form onsubmit="return false" style="font-family:'Inter',sans-serif">
+  <div style="max-width:260px;margin:auto;border:1px solid #E2E8F0;padding:16px;border-radius:10px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+    <h4 style="text-align:center;color:#2D6BE4;margin-bottom:12px;font-size:14px">Login Simulasi</h4>
+    <input type="email" placeholder="email@contoh.com" style="display:block;width:100%;padding:8px 12px;margin-bottom:8px;border:2px solid #2D6BE4;border-radius:6px;box-sizing:border-box;font-size:12px">
+    <input type="password" placeholder="Password" style="display:block;width:100%;padding:8px 12px;margin-bottom:12px;border:1px solid #CBD5E1;border-radius:6px;box-sizing:border-box;font-size:12px">
+    <button type="button" style="width:100%;padding:8px;background:#2D6BE4;color:white;border:none;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer">Masuk &#8594;</button>
+  </div>
+</form>
+        </div>
+      </div>
+    </div>
+    <div class="callout warning">
+      <div class="callout-title">&#9888;&#65039; Common Mistake — Lupa box-sizing</div>
+      Jika kamu set <code>width: 100%</code> lalu tambah <code>padding: 20px</code> <strong>tanpa</strong> <code>box-sizing: border-box</code>, total lebar elemen jadi <code>100% + 40px</code> → <strong>meluber keluar container!</strong>
+    </div>
+    
+    <div class="exercise">
+      <div class="exercise-title">&#9999;&#65039; Exercise 5</div>
+      <p>Buat form "Daftar Akun" dengan field: nama, email, password, dan tombol Daftar. Pastikan setiap input memiliki <code>display: block</code>, <code>width: 100%</code>, dan <code>box-sizing: border-box</code>.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">&#128161; Lihat Contoh Jawaban</button>
+      <div class="hint-box"><pre>.form-container { max-width: 300px; margin: 0 auto; padding: 20px; }
+input {
+  display: block; width: 100%;
+  padding: 10px; border: 1px solid #ccc;
+  border-radius: 8px; box-sizing: border-box;
+  margin-bottom: 10px;
+}
+button { width: 100%; padding: 10px; background: teal; color: white; border: none; border-radius: 8px; }</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S6 -->
+  <section class="section" id="s6">
+    <div class="section-header"><span class="section-num">06</span><h2>Aksesibilitas &amp; Interaksi (:hover &amp; :focus)</h2></div>
+    <div class="card">
+      <p>Dua konsep penting dalam membuat form yang <strong>aksesibel</strong> dan <strong>interaktif</strong>:</p>
+      <ul style="margin-top:8px">
+        <li>Tag <code>&lt;label&gt;</code> dihubungkan ke <code>&lt;input&gt;</code> via atribut <code>for</code> &#8596; <code>id</code> — klik label = kursor masuk ke input</li>
+        <li>Pseudo-class <code>:hover</code> — mengubah gaya saat kursor melintas di atas elemen</li>
+        <li>Pseudo-class <code>:focus</code> — mengubah gaya saat elemen sedang aktif/diklik</li>
+      </ul>
+    </div>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 6 — Label, :hover &amp; :focus
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Label terhubung ke input --&gt;</span>
+<span class="ht">&lt;label</span> <span class="at">for=</span><span class="av">"email"</span><span class="ht">&gt;</span>
+  <span class="tx">Email:</span>
+<span class="ht">&lt;/label&gt;</span>
+<span class="ht">&lt;input</span> <span class="at">type=</span><span class="av">"email"</span>
+       <span class="at">id=</span><span class="av">"email"</span>
+       <span class="at">name=</span><span class="av">"email"</span><span class="ht">&gt;</span>
+
+<span class="ht">&lt;button</span> <span class="at">type=</span><span class="av">"submit"</span><span class="ht">&gt;</span>
+  <span class="tx">Kirim</span>
+<span class="ht">&lt;/button&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="cm">/* Pseudo-class :hover */</span>
+<span class="sel">button</span> {
+  <span class="prop">background</span>: <span class="val">#2D6BE4</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+  <span class="prop">border</span>: <span class="val">none</span>;
+  <span class="prop">padding</span>: <span class="val">8px 20px</span>;
+  <span class="prop">border-radius</span>: <span class="val">6px</span>;
+  <span class="prop">transition</span>: <span class="val">all 0.2s ease</span>;
+}
+
+<span class="sel">button:hover</span> {
+  <span class="prop">background</span>: <span class="val">#1A4DB5</span>;
+  <span class="prop">transform</span>: <span class="val">translateY(-2px)</span>;
+  <span class="prop">box-shadow</span>: <span class="val">0 4px 12px rgba(0,0,0,.2)</span>;
+}
+
+<span class="cm">/* Pseudo-class :focus */</span>
+<span class="sel">input:focus</span> {
+  <span class="prop">outline</span>: <span class="val">none</span>;
+  <span class="prop">border-color</span>: <span class="val">#2D6BE4</span>;
+  <span class="prop">box-shadow</span>: <span class="val">0 0 0 3px #EBF1FD</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<div style="font-family:'Inter',sans-serif;font-size:13px">
+  <label for="d6-email" style="display:block;margin-bottom:4px;font-weight:600;color:#1A1D2E">Email (klik label ini):</label>
+  <input type="email" id="d6-email" placeholder="kursor masuk otomatis" style="display:block;width:100%;padding:8px 12px;border:1.5px solid #CBD5E1;border-radius:6px;font-size:12px;box-sizing:border-box;margin-bottom:12px">
+  <button style="padding:8px 20px;background:#2D6BE4;color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s"
+    onmouseover="this.style.background='#1A4DB5';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,.2)'"
+    onmouseout="this.style.background='#2D6BE4';this.style.transform='translateY(0)';this.style.boxShadow='none'">
+    Hover Saya! &#10024;
+  </button>
+</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-title">&#9989; Tips — transition untuk animasi halus</div>
+      Tambahkan <code>transition: all 0.2s ease;</code> pada elemen yang punya <code>:hover</code> agar perubahan gaya berlangsung <strong>halus dan smooth</strong>. Ini membuat UI terasa jauh lebih premium!
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S7 -->
+  <section class="section" id="s7">
+    <div class="section-header"><span class="section-num">07</span><h2>Pembuatan Menu Navigasi Vertikal</h2></div>
+    <div class="card">
+      <p>Mengubah <code>&lt;ul&gt;</code> menjadi menu navigasi yang rapi membutuhkan beberapa teknik: reset bullet, ubah <code>&lt;a&gt;</code> menjadi block, dan selaraskan teks secara vertikal.</p>
+    </div>
+    <div class="callout analogy">
+      <div class="callout-title">&#128161; Analogi</div>
+      <code>&lt;a&gt;</code> defaultnya seperti kata dalam kalimat — hanya selebar teksnya. Dengan <code>display: block</code>, ia jadi seperti <strong>baris penuh</strong> — seluruh area baris bisa diklik, bukan hanya teksnya saja.
+    </div>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 7 — Navigasi Vertikal
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Struktur Navigasi Vertikal --&gt;</span>
+<span class="ht">&lt;nav&gt;</span>
+  <span class="ht">&lt;ul</span> <span class="at">class=</span><span class="av">"nav-vertikal"</span><span class="ht">&gt;</span>
+
+    <span class="ht">&lt;li&gt;</span>
+      <span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#"</span><span class="ht">&gt;</span>
+        <span class="tx">&#127968; Beranda</span>
+      <span class="ht">&lt;/a&gt;</span>
+    <span class="ht">&lt;/li&gt;</span>
+
+    <span class="ht">&lt;li&gt;</span>
+      <span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#"</span><span class="ht">&gt;</span>
+        <span class="tx">&#128218; Belajar HTML</span>
+      <span class="ht">&lt;/a&gt;</span>
+    <span class="ht">&lt;/li&gt;</span>
+
+    <span class="ht">&lt;li&gt;</span>
+      <span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#"</span><span class="ht">&gt;</span>
+        <span class="tx">&#127912; Belajar CSS</span>
+      <span class="ht">&lt;/a&gt;</span>
+    <span class="ht">&lt;/li&gt;</span>
+
+  <span class="ht">&lt;/ul&gt;</span>
+<span class="ht">&lt;/nav&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="sel">.nav-vertikal</span> {
+  <span class="prop">list-style</span>: <span class="val">none</span>; <span class="cm">/* Hapus bullet */</span>
+  <span class="prop">padding</span>: <span class="val">0</span>;
+  <span class="prop">margin</span>: <span class="val">0</span>;
+  <span class="prop">width</span>: <span class="val">200px</span>;
+}
+
+<span class="sel">.nav-vertikal li a</span> {
+  <span class="prop">display</span>: <span class="val">block</span>; <span class="cm">/* Area klik penuh */</span>
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;
+  <span class="prop">background-color</span>: <span class="val">#2D6BE4</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+  <span class="prop">height</span>: <span class="val">40px</span>;
+  <span class="prop">line-height</span>: <span class="val">40px</span>; <span class="cm">/* Tengah vertikal */</span>
+  <span class="prop">padding-left</span>: <span class="val">16px</span>;
+  <span class="prop">border-left</span>: <span class="val">3px solid transparent</span>;
+  <span class="prop">transition</span>: <span class="val">all 0.15s</span>;
+}
+
+<span class="sel">.nav-vertikal li a:hover</span> {
+  <span class="prop">background-color</span>: <span class="val">goldenrod</span>;
+  <span class="prop">color</span>: <span class="val">black</span>;
+  <span class="prop">padding-left</span>: <span class="val">22px</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<ul style="list-style:none;padding:0;margin:0;width:180px;font-family:'Inter',sans-serif">
+  <li style="margin-bottom:2px"><a href="#" style="display:block;text-decoration:none;background:#2D6BE4;color:white;height:36px;line-height:36px;padding-left:14px;font-size:13px;border-radius:6px;transition:all .15s"
+    onmouseover="this.style.background='goldenrod';this.style.color='black';this.style.paddingLeft='20px'"
+    onmouseout="this.style.background='#2D6BE4';this.style.color='white';this.style.paddingLeft='14px'">&#127968; Beranda</a></li>
+  <li style="margin-bottom:2px"><a href="#" style="display:block;text-decoration:none;background:#2D6BE4;color:white;height:36px;line-height:36px;padding-left:14px;font-size:13px;border-radius:6px;transition:all .15s"
+    onmouseover="this.style.background='goldenrod';this.style.color='black';this.style.paddingLeft='20px'"
+    onmouseout="this.style.background='#2D6BE4';this.style.color='white';this.style.paddingLeft='14px'">&#128218; Belajar HTML</a></li>
+  <li><a href="#" style="display:block;text-decoration:none;background:#2D6BE4;color:white;height:36px;line-height:36px;padding-left:14px;font-size:13px;border-radius:6px;transition:all .15s"
+    onmouseover="this.style.background='goldenrod';this.style.color='black';this.style.paddingLeft='20px'"
+    onmouseout="this.style.background='#2D6BE4';this.style.color='white';this.style.paddingLeft='14px'">&#127912; Belajar CSS</a></li>
+</ul>
+        </div>
+      </div>
+    </div>
+    <div class="callout info">
+      <div class="callout-title">&#8505;&#65039; line-height = height → Teks Vertikal Tengah</div>
+      Trik klasik: jika <code>height: 40px</code> dan <code>line-height: 40px</code>, maka teks akan otomatis berada <strong>tepat di tengah vertikal</strong> kotak tersebut.
+    </div>
+    
+    <div class="exercise">
+      <div class="exercise-title">&#9999;&#65039; Exercise 7</div>
+      <p>Buat navigasi vertikal dengan 4 menu: Beranda, Profil, Portfolio, Kontak. Beri warna background <code>teal</code>, teks putih, dan efek hover yang mengubah background menjadi <code>goldenrod</code> dengan teks hitam.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">&#128161; Lihat Contoh Jawaban</button>
+      <div class="hint-box"><pre>ul { list-style: none; padding: 0; margin: 0; width: 200px; }
+ul li a {
+  display: block; text-decoration: none;
+  background-color: teal; color: white;
+  height: 40px; line-height: 40px; padding-left: 15px;
+}
+ul li a:hover { background-color: goldenrod; color: black; }</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S8 -->
+  <section class="section" id="s8">
+    <div class="section-header"><span class="section-num">08</span><h2>Navigasi Horizontal (Navbar)</h2></div>
+    <div class="card">
+      <p>Untuk membuat menu berjejer mendatar seperti <em>navbar</em>, kita menggunakan teknik <code>float: left</code> pada elemen link sehingga setiap item bergeser rapat ke sisi kiri item sebelumnya.</p>
+    </div>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 8 — Navigasi Horizontal dengan Float
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Struktur Navbar Horizontal --&gt;</span>
+<span class="ht">&lt;nav&gt;</span>
+  <span class="ht">&lt;ul</span> <span class="at">class=</span><span class="av">"navbar"</span><span class="ht">&gt;</span>
+
+    <span class="ht">&lt;li&gt;</span>
+      <span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#"</span><span class="ht">&gt;</span>
+        <span class="tx">Beranda</span>
+      <span class="ht">&lt;/a&gt;</span>
+    <span class="ht">&lt;/li&gt;</span>
+
+    <span class="ht">&lt;li&gt;</span>
+      <span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#"</span><span class="ht">&gt;</span>
+        <span class="tx">Kelas Web</span>
+      <span class="ht">&lt;/a&gt;</span>
+    <span class="ht">&lt;/li&gt;</span>
+
+    <span class="ht">&lt;li&gt;</span>
+      <span class="ht">&lt;a</span> <span class="at">href=</span><span class="av">"#"</span><span class="ht">&gt;</span>
+        <span class="tx">Kontak</span>
+      <span class="ht">&lt;/a&gt;</span>
+    <span class="ht">&lt;/li&gt;</span>
+
+  <span class="ht">&lt;/ul&gt;</span>
+<span class="ht">&lt;/nav&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="sel">.navbar</span> {
+  <span class="prop">list-style</span>: <span class="val">none</span>;
+  <span class="prop">padding</span>: <span class="val">0</span>;
+  <span class="prop">margin</span>: <span class="val">0</span>;
+  <span class="prop">background-color</span>: <span class="val">#1A1D2E</span>;
+  <span class="prop">overflow</span>: <span class="val">hidden</span>; <span class="cm">/* Wrap float children */</span>
+}
+
+<span class="sel">.navbar li</span> { <span class="prop">float</span>: <span class="val">left</span>; }
+
+<span class="sel">.navbar li a</span> {
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;
+  <span class="prop">padding</span>: <span class="val">0 20px</span>;
+  <span class="prop">height</span>: <span class="val">44px</span>;
+  <span class="prop">line-height</span>: <span class="val">44px</span>;
+  <span class="prop">border-right</span>: <span class="val">1px solid rgba(255,255,255,0.1)</span>;
+  <span class="prop">transition</span>: <span class="val">all 0.15s</span>;
+}
+
+<span class="sel">.navbar li a:hover</span> {
+  <span class="prop">background-color</span>: <span class="val">#2D6BE4</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<ul style="list-style:none;padding:0;margin:0;background:#1A1D2E;overflow:hidden;font-family:'Inter',sans-serif;border-radius:6px">
+  <li style="float:left"><a href="#" style="display:block;color:white;text-decoration:none;padding:0 16px;height:36px;line-height:36px;font-size:13px;background:#2D6BE4">&#127968; Beranda</a></li>
+  <li style="float:left"><a href="#" style="display:block;color:#ccc;text-decoration:none;padding:0 16px;height:36px;line-height:36px;font-size:13px;border-right:1px solid rgba(255,255,255,.1)"
+    onmouseover="this.style.background='#2D6BE4';this.style.color='white'"
+    onmouseout="this.style.background='transparent';this.style.color='#ccc'">&#128218; Kelas Web</a></li>
+  <li style="float:left"><a href="#" style="display:block;color:#ccc;text-decoration:none;padding:0 16px;height:36px;line-height:36px;font-size:13px"
+    onmouseover="this.style.background='#2D6BE4';this.style.color='white'"
+    onmouseout="this.style.background='transparent';this.style.color='#ccc'">&#128233; Kontak</a></li>
+</ul>
+<div style="clear:both"></div>
+<p style="font-size:11px;color:#9CA3AF;margin-top:8px">&#8593; Coba hover item menu!</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-title">&#9989; Tips — overflow: hidden pada parent ul</div>
+      Karena elemen yang di-<code>float</code> keluar dari aliran layout normal, parent <code>&lt;ul&gt;</code> tidak bisa mendeteksi tingginya. Tambahkan <code>overflow: hidden</code> agar parent menyesuaikan tingginya (teknik <em>clearfix</em>).
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S9 -->
+  <section class="section" id="s9">
+    <div class="section-header"><span class="section-num">09</span><h2>Tata Letak Konten: Float &amp; Clear</h2></div>
+    <div class="card">
+      <p>Properti <code>float</code> sangat berguna untuk layout gaya majalah — teks mengalir membungkus di samping gambar. Namun karena elemen float "melayang" di luar aliran normal, kita perlu <code>clear</code> untuk mengembalikan layout ke kondisi normal.</p>
+    </div>
+    <div class="callout analogy">
+      <div class="callout-title">&#128161; Analogi</div>
+      Elemen yang di-<code>float</code> seperti <strong>es batu di gelas air</strong> — es mengapung, dan air (teks) mengalir di sekitarnya. <code>clear</code> seperti menaruh sebuah <strong>bata pemisah</strong> — semua elemen setelahnya dimulai dari bawah.
+    </div>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Demo 9 — Float &amp; Clear Layout
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- Artikel bergaya majalah --&gt;</span>
+<span class="ht">&lt;article</span> <span class="at">class=</span><span class="av">"artikel"</span><span class="ht">&gt;</span>
+
+  <span class="ht">&lt;img</span> <span class="at">src=</span><span class="av">"foto.jpg"</span>
+       <span class="at">class=</span><span class="av">"foto-profil"</span>
+       <span class="at">alt=</span><span class="av">"Foto Profil"</span><span class="ht">&gt;</span>
+
+  <span class="ht">&lt;p&gt;</span>
+    <span class="tx">Teks artikel yang panjang
+    mengalir di samping gambar...</span>
+  <span class="ht">&lt;/p&gt;</span>
+
+  <span class="cm">&lt;!-- Wajib ada untuk clear float! --&gt;</span>
+  <span class="ht">&lt;div</span> <span class="at">class=</span><span class="av">"clear"</span><span class="ht">&gt;&lt;/div&gt;</span>
+
+<span class="ht">&lt;/article&gt;</span>
+<span class="ht">&lt;hr&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="sel">.foto-profil</span> {
+  <span class="prop">width</span>: <span class="val">100px</span>;
+  <span class="prop">height</span>: <span class="val">100px</span>;
+  <span class="prop">float</span>: <span class="val">left</span>; <span class="cm">/* Teks alir di kanan */</span>
+  <span class="prop">margin</span>: <span class="val">0 16px 8px 0</span>;
+  <span class="prop">border-radius</span>: <span class="val">100%</span>; <span class="cm">/* Lingkaran */</span>
+  <span class="prop">object-fit</span>: <span class="val">cover</span>;
+}
+
+<span class="sel">.clear</span> {
+  <span class="prop">clear</span>: <span class="val">both</span>; <span class="cm">/* Hentikan efek float */</span>
+}
+
+<span class="cm">/* Clearfix modern (alternatif) */</span>
+<span class="sel">.artikel::after</span> {
+  <span class="prop">content</span>: <span class="val">""</span>;
+  <span class="prop">display</span>: <span class="val">table</span>;
+  <span class="prop">clear</span>: <span class="val">both</span>;
+}</pre></div>
+          </div>
+        </div>
+        <div class="preview-pane">
+          <div class="preview-label">Live Preview</div>
+          
+<div style="font-family:'Inter',sans-serif">
+  <h5 style="color:#2D6BE4;font-size:13px;margin-bottom:8px">Artikel Pilihan</h5>
+  <div style="width:72px;height:72px;background:linear-gradient(135deg,#2D6BE4,#9B59B6);float:left;margin:0 12px 8px 0;border-radius:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px">&#128100;</div>
+  <p style="font-size:12px;text-align:justify;line-height:1.7;color:#374151">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Teks ini mengalir di samping kanan gambar profil berbentuk lingkaran berkat properti <strong>float: left</strong>.</p>
+  <div style="clear:both"></div>
+  <hr style="border:1px solid #E2E8F0;margin-top:10px;margin-bottom:8px">
+  <p style="font-size:11px;color:#9CA3AF">&#8593; Garis ini tetap rapi karena clear:both</p>
+</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout warning">
+      <div class="callout-title">&#9888;&#65039; Perhatian — Float vs Flexbox/Grid</div>
+      Di dunia web modern, <strong>Flexbox</strong> dan <strong>CSS Grid</strong> sudah menggantikan teknik <code>float</code> untuk layout. Float sebaiknya hanya dipakai untuk text wrapping gambar. Untuk navbar dan grid konten, gunakan Flexbox.
+    </div>
+    
+    <div class="exercise">
+      <div class="exercise-title">&#9999;&#65039; Exercise 9</div>
+      <p>Buat layout artikel bergaya majalah: gambar profil lingkaran di kiri (float left, 100x100px), teks artikel di kanan, lalu tambahkan <code>&lt;hr&gt;</code> di bawah. Pastikan <code>hr</code> tidak naik ke samping gambar.</p>
+      <button class="hint-toggle" onclick="toggleHint(this)">&#128161; Lihat Contoh Jawaban</button>
+      <div class="hint-box"><pre>&lt;!-- HTML --&gt;
+&lt;article&gt;
+  &lt;img src="foto.jpg" class="foto-profil"&gt;
+  &lt;p&gt;Teks artikel panjang...&lt;/p&gt;
+  &lt;div class="clear"&gt;&lt;/div&gt;
+&lt;/article&gt;
+&lt;hr&gt;
+
+/* CSS */
+.foto-profil {
+  width: 100px; height: 100px;
+  float: left; margin: 0 15px 10px 0;
+  border-radius: 100%;
+}
+.clear { clear: left; }</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- S10 -->
+  <section class="section" id="s10">
+    <div class="section-header"><span class="section-num">&#127919;</span><h2>Homework: Halaman Web Lengkap</h2></div>
+    <div class="card">
+      <p>Saatnya menggabungkan semua yang telah dipelajari! Buat halaman baru <code>tugas_v3.html</code> dan <code>tugas_v3.css</code>.</p>
+      <br>
+      <p><strong>Halaman ini harus memiliki:</strong></p>
+      <ol style="margin-top:8px;padding-left:20px">
+        <li><strong>Navbar Horizontal</strong> — <code>&lt;ul&gt;</code> + <code>float: left</code>, warna berubah saat hover</li>
+        <li><strong>Jumbotron/Hero</strong> — gradient yang menarik</li>
+        <li><strong>Artikel Majalah</strong> — gambar lingkaran di kiri + teks di kanan</li>
+        <li><strong>Form Kontak</strong> — nama, email, pesan, dengan <code>label</code>, <code>required</code>, dan tombol hover</li>
+        <li><strong>Clearfix</strong> — elemen <code>clear: both</code> setelah setiap bagian float</li>
+      </ol>
+    </div>
+    <div class="callout analogy">
+      <div class="callout-title">&#128161; Strategi Pengerjaan</div>
+      Kerjakan dari atas ke bawah: Navbar &#8594; Hero &#8594; Artikel &#8594; Form. Setelah setiap bagian selesai, buka di browser untuk mengecek. Tab <strong>HTML</strong> untuk struktur, tab <strong>CSS</strong> untuk gaya!
+    </div>
+    
+    <div class="demo-block">
+      <div class="demo-header">
+        <div class="demo-label">
+          <span class="demo-dot dot-r"></span>
+          <span class="demo-dot dot-y"></span>
+          <span class="demo-dot dot-g"></span>
+          &nbsp; Kode Referensi Homework
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(this,'html')">HTML</button>
+            <button class="tab-btn" onclick="switchTab(this,'css')">CSS</button>
+          </div>
+          <button class="copy-btn" onclick="copyCode(this)">&#8856; Copy</button>
+        </div>
+      </div>
+      <div class="demo-body full">
+        <div class="tab-panes">
+          <div class="tab-pane active" data-tab="html">
+            <div class="code-pane"><pre><span class="cm">&lt;!-- tugas_v3.html --&gt;</span>
+<span class="ht">&lt;!DOCTYPE html&gt;</span>
+<span class="ht">&lt;html</span> <span class="at">lang=</span><span class="av">"id"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;head&gt;</span>
+  <span class="ht">&lt;link</span> <span class="at">rel=</span><span class="av">"stylesheet"</span>
+        <span class="at">href=</span><span class="av">"tugas_v3.css"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/head&gt;</span>
+<span class="ht">&lt;body&gt;</span>
+
+  <span class="cm">&lt;!-- Navbar --&gt;</span>
+  <span class="ht">&lt;nav&gt;&lt;ul&gt;</span>
+    <span class="ht">&lt;li&gt;&lt;a</span> <span class="at">href=</span><span class="av">"#"</span><span class="ht">&gt;</span><span class="tx">Beranda</span><span class="ht">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="ht">&lt;li&gt;&lt;a</span> <span class="at">href=</span><span class="av">"#profil"</span><span class="ht">&gt;</span><span class="tx">Profil</span><span class="ht">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="ht">&lt;li&gt;&lt;a</span> <span class="at">href=</span><span class="av">"#kontak"</span><span class="ht">&gt;</span><span class="tx">Kontak</span><span class="ht">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="ht">&lt;/ul&gt;&lt;/nav&gt;</span>
+
+  <span class="cm">&lt;!-- Hero --&gt;</span>
+  <span class="ht">&lt;div</span> <span class="at">class=</span><span class="av">"hero"</span><span class="ht">&gt;</span>
+    <span class="ht">&lt;h1&gt;</span><span class="tx">Selamat Datang!</span><span class="ht">&lt;/h1&gt;</span>
+  <span class="ht">&lt;/div&gt;</span>
+
+  <span class="cm">&lt;!-- Artikel --&gt;</span>
+  <span class="ht">&lt;article</span> <span class="at">id=</span><span class="av">"profil"</span><span class="ht">&gt;</span>
+    <span class="ht">&lt;img</span> <span class="at">src=</span><span class="av">"foto.jpg"</span>
+         <span class="at">class=</span><span class="av">"foto-profil"</span>
+         <span class="at">alt=</span><span class="av">"Foto Profil"</span><span class="ht">&gt;</span>
+    <span class="ht">&lt;p&gt;</span><span class="tx">Tentang Saya...</span><span class="ht">&lt;/p&gt;</span>
+    <span class="ht">&lt;div</span> <span class="at">class=</span><span class="av">"clear"</span><span class="ht">&gt;&lt;/div&gt;</span>
+  <span class="ht">&lt;/article&gt;</span>
+  <span class="ht">&lt;hr&gt;</span>
+
+<span class="ht">&lt;/body&gt;</span>
+<span class="ht">&lt;/html&gt;</span></pre></div>
+          </div>
+          <div class="tab-pane" data-tab="css">
+            <div class="code-pane"><pre><span class="cm">/* tugas_v3.css — Referensi lengkap */</span>
+
+<span class="cm">/* 1. Navbar */</span>
+<span class="sel">nav ul</span> {
+  <span class="prop">list-style</span>: <span class="val">none</span>;
+  <span class="prop">padding</span>: <span class="val">0</span>;
+  <span class="prop">background</span>: <span class="val">teal</span>;
+  <span class="prop">overflow</span>: <span class="val">hidden</span>;
+}
+<span class="sel">nav ul li</span> { <span class="prop">float</span>: <span class="val">left</span>; }
+<span class="sel">nav ul li a</span> {
+  <span class="prop">display</span>: <span class="val">block</span>; <span class="prop">color</span>: <span class="val">white</span>;
+  <span class="prop">padding</span>: <span class="val">0 20px</span>;
+  <span class="prop">height</span>: <span class="val">45px</span>; <span class="prop">line-height</span>: <span class="val">45px</span>;
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;
+}
+<span class="sel">nav ul li a:hover</span> {
+  <span class="prop">background</span>: <span class="val">goldenrod</span>;
+  <span class="prop">color</span>: <span class="val">black</span>;
+}
+
+<span class="cm">/* 2. Hero */</span>
+<span class="sel">.hero</span> {
+  <span class="prop">height</span>: <span class="val">250px</span>;
+  <span class="prop">background</span>: <span class="val">linear-gradient(135deg, teal, #0052cc)</span>;
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+}
+
+<span class="cm">/* 3. Artikel Majalah */</span>
+<span class="sel">.foto-profil</span> {
+  <span class="prop">width</span>: <span class="val">150px</span>; <span class="prop">float</span>: <span class="val">left</span>;
+  <span class="prop">margin</span>: <span class="val">0 20px 10px 0</span>;
+  <span class="prop">border-radius</span>: <span class="val">100%</span>;
+}
+<span class="sel">.clear</span> { <span class="prop">clear</span>: <span class="val">left</span>; }
+
+<span class="cm">/* 4. Form */</span>
+<span class="sel">input</span>, <span class="sel">textarea</span> {
+  <span class="prop">display</span>: <span class="val">block</span>; <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+  <span class="prop">padding</span>: <span class="val">10px</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">10px</span>;
+}
+<span class="sel">button:hover</span> { <span class="prop">background</span>: <span class="val">goldenrod</span>; }</pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-title">&#9989; Tantangan Tambahan</div>
+      Setelah selesai, coba tambahkan:
+      <ol style="padding-left:18px;margin-top:6px">
+        <li>Hover smooth: <code>transition: background 0.3s ease</code></li>
+        <li>Box shadow pada form card: <code>box-shadow: 0 4px 16px rgba(0,0,0,0.1)</code></li>
+        <li>Font dari Google Fonts: Inter atau Poppins</li>
+        <li>Tata letak 2 kolom (sidebar + konten) menggunakan float</li>
+      </ol>
+    </div>
+    <div class="reflection">
+      <strong>&#129300; Refleksi Akhir Modul:</strong> Kamu sudah menguasai dasar-dasar CSS — dari integrasi, selector, box model, background, hingga navigasi dan layout. Coba gunakan tab HTML/CSS di setiap demo untuk melihat hubungan antara struktur dan gaya secara bersamaan! &#128640;
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // ── Tab switching ──────────────────────────────────────────
+  function switchTab(btn, tabName) {
+    const demoBlock = btn.closest('.demo-block');
+    // Deactivate all tab buttons
+    demoBlock.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Show matching pane, hide others
+    demoBlock.querySelectorAll('.tab-pane').forEach(p => {
+      p.classList.toggle('active', p.dataset.tab === tabName);
+    });
+  }
+
+  // ── Copy code ─────────────────────────────────────────────
+  function copyCode(btn) {
+    const demoBlock = btn.closest('.demo-block');
+    // Copy whichever pane is currently active
+    const activePre = demoBlock.querySelector('.tab-pane.active pre') ||
+                      demoBlock.querySelector('pre');
+    const text = activePre ? (activePre.innerText || activePre.textContent) : '';
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '&#10003; Copied!';
+      btn.style.color = '#28C840';
+      setTimeout(() => { btn.textContent = '&#8856; Copy'; btn.style.color = ''; }, 2000);
+    });
+  }
+
+  // ── Sidebar scroll highlight ───────────────────────────────
+  const sections = document.querySelectorAll('.section');
+  const tocItems = document.querySelectorAll('.toc-item');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+    });
+    tocItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === '#' + current) item.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+p {
+    color: blue;
+    font-size: 16px;
+}
+
+/* Class Selector */
+.highlight { 
+    color: crimson; 
+}
+
+/* ID Selector */
+#spesial {
+  color: goldenrod;
+  font-weight: bold;
+}
+
+/* Attribute Selector */
+input[type="email"] {
+  border: 2px solid royalblue;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
