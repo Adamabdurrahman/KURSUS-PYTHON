@@ -1,0 +1,28 @@
+/* =================================== */
+/*          VERSI HORIZONTAL           */
+/* =================================== */
+
+.nav-horizontal {
+  list-style: none; /* Hapus bullet */
+  padding: 0;
+  margin: 0;
+  background-color: #2D6BE4; /* Pindahkan background ke parent */
+  display: flex; 
+  /* KUNCI UTAMA: Membuat li berjajar ke samping */
+  border-radius: 6px; /* Sedikit estetika */
+  overflow: hidden; 
+  /* Agar radius terlihat */
+}
+
+.nav-horizontal li a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 12px 20px; /* Padding atas-bawah dan kiri-kanan */
+  transition: all 0.15s;
+}
+
+.nav-horizontal li a:hover {
+  background-color: goldenrod;
+  color: black;
+}

@@ -20,3 +20,56 @@ input[type="email"] {
   border-radius: 4px;
   padding: 4px 8px;
 }
+
+.kotak {
+  width: 200px;
+  height: 60px;
+  padding: 20px 50px 20px 30px;
+  border: 5px solid #2D6BE4;
+  border-radius: 20px;
+  margin: 20px 20px 20px 20px;
+  /* top right bottom left*/
+  text-align: auto; /* Tengah horizontal */
+  background-color: #EBF1FD;
+}
+
+/* Tipografi */
+.teks-artikel {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.jumbotron {
+  width: 100%;
+  height: 1000px;
+  background-image: url('forest.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+h1{
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #2D6BE4;
+}
+
+/* Gradient sebagai background */
+.gradient-box {
+  background: linear-gradient(
+    135deg,
+    #2D6BE4,
+    #9B59B6
+  );
+  color: white;
+}
+
+/* Efek Parallax saat scroll */
+.parallax {
+  background-attachment: fixed;
+}
+

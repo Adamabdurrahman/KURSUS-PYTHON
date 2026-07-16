@@ -1,0 +1,19 @@
+.foto-profil {
+  width: 100px;
+  height: 100px;
+  float: left; /* Teks alir di kanan */
+  margin: 0 16px 8px 0;
+  border-radius: 100%; /* Lingkaran */
+  object-fit: cover;
+}
+
+.clear {
+  clear: both; /* Hentikan efek float */
+}
+
+/* Clearfix modern (alternatif) */
+.artikel::after {
+  content: "";
+  display: table;
+  clear: both;
+}
